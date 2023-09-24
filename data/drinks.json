@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "name": "Coffee",
+    "price": 2.5,
+    "stock": 50
+  },
+  {
+    "id": 2,
+    "name": "Tea",
+    "price": 1.8,
+    "stock": 40
+  },
+  {
+    "id": 3,
+    "name": "Soda",
+    "price": 2.0,
+    "stock": 60
+  },
+  {
+    "id": 4,
+    "name": "Water",
+    "price": 1.0,
+    "stock": 100
+  },
+  {
+    "id": 5,
+    "name": "Orange Juice",
+    "price": 3.0,
+    "stock": 30
+  },
+  {
+    "id": 6,
+    "name": "Lemonade",
+    "price": 2.5,
+    "stock": 35
+  },
+  {
+    "id": 7,
+    "name": "Iced Coffee",
+    "price": 3.0,
+    "stock": 45
+  },
+  {
+    "id": 8,
+    "name": "Milkshake",
+    "price": 4.5,
+    "stock": 25
+  },
+  {
+    "id": 9,
+    "name": "Hot Chocolate",
+    "price": 3.5,
+    "stock": 20
+  },
+  {
+    "id": 10,
+    "name": "Cappuccino",
+    "price": 3.0,
+    "stock": 40
+  },
+  {
+    "id": 11,
+    "name": "Lime Soda",
+    "price": 2.0,
+    "stock": 60
+  },
+  {
+    "id": 12,
+    "name": "Peach Tea",
+    "price": 2.2,
+    "stock": 55
+  },
+  {
+    "id": 13,
+    "name": "Ginger Ale",
+    "price": 2.0,
+    "stock": 70
+  },
+  {
+    "id": 14,
+    "name": "Mojito",
+    "price": 5.0,
+    "stock": 15
+  },
+  {
+    "id": 15,
+    "name": "Strawberry Smoothie",
+    "price": 4.0,
+    "stock": 25
+  },
+  {
+    "id": 16,
+    "name": "Pineapple Juice",
+    "price": 3.5,
+    "stock": 30
+  },
+  {
+    "id": 17,
+    "name": "Green Tea",
+    "price": 2.2,
+    "stock": 50
+  },
+  {
+    "id": 18,
+    "name": "Blueberry Lemonade",
+    "price": 3.5,
+    "stock": 30
+  },
+  {
+    "id": 19,
+    "name": "Espresso",
+    "price": 2.8,
+    "stock": 35
+  },
+  {
+    "id": 20,
+    "name": "Mint Tea",
+    "price": 2.0,
+    "stock": 45
+  }
+]
