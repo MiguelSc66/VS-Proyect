@@ -22,8 +22,13 @@ fs.readdirSync(path.join(__dirname, '/models'))
   });
 
 // Agrega las asociaciones aquí, si las tienes
-const { User, Drink } = sequelize.models;
-User.hasMany(Drink, { as: "orders" });
+const { Users, Drink, Order } = sequelize.models;
+
+Users.hasMany(Order, { as: "orders" });
+Order.belongsTo(Users);
+Users.hasMany(Drink, { as: "orders" });
+Drink.belongsTo(Users, { as: "user" });
+
 
 module.exports = {
   ...sequelize.models,

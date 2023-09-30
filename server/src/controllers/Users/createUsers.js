@@ -17,7 +17,7 @@ export const createUser = async (req, res) => {
     }
 
     // Generar una sal para el cifrado de contraseña
-    const salt = crypto.randomBytes(16).toString("hex");
+    const salt = crypto.randomBytes(32).toString("hex");
 
     // Aplicar el cifrado de contraseña
     const hashedPassword = await bcrypt.hash(password, 10);

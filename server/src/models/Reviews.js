@@ -1,7 +1,7 @@
 import { DataTypes  } from "sequelize";
 const db = require("../db");
 
-const Reviews = db.define("Reviews", {
+export const Reviews = db.define("Reviews", {
     email: {
         type: DataTypes.STRING(255),
         allowNull: false,
