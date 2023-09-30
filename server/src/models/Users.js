@@ -3,7 +3,12 @@ const db = require("../db"); // Asegúrate de importar tu instancia de Sequelize
 const Drink = require("./Drink"); // Importa el modelo de Drink
 
 const User = db.define("User", {
-  username: {
+  id: {
+    type: DataTypes.UUID,
+    primaryKey: true,
+    defaultValue: DataTypes.UUIDV4,
+  },
+  name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -11,6 +16,26 @@ const User = db.define("User", {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
+  },
+  password: {
+    type: DataTypes.STRING,
+  },
+  phoneNumber: {
+    type: DataTypes.STRING,
+  },
+  city: {
+    type: DataTypes.STRING,
+  },
+  country: {
+    type: DataTypes.STRING,
+  },
+  Admin: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+  isDeleted: { // borrado lógico
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
   },
 });
 
