@@ -1,4 +1,4 @@
-import server from './src/server'
+import {server} from './src/server'
 import {sequelize} from "./src/db";
 import {PORT} from "./config";
 server.listen(PORT, () => {
