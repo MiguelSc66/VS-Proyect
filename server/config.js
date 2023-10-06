@@ -1,15 +1,13 @@
-import dotenv from 'dotenv';
+require("dotenv").config();
 
-dotenv.config();
-
-export const {
+module.exports = {
     DB_USER,
     DB_PASSWORD,
     DB_HOST,
     DB_NAME,
     TOKEN,
-    GOOGLE_CLIENT_ID, 
-    GOOGLE_CLIENT_SECRET,
-    DB_DEPLOY,
+    // GOOGLE_CLIENT_ID, 
+    // GOOGLE_CLIENT_SECRET,
+    // DB_DEPLOY,
     PORT
 } = process.env;

@@ -1,14 +1,16 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  sequelize.define('Drink', {
-    id: {
+  sequelize.define('CartItem', {
+    productId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
     },
-    name: {
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    productName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -16,18 +18,17 @@ module.exports = (sequelize) => {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
-    stock: {
-      type: DataTypes.FLOAT,
+    quantity: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+      defaultValue: 0,
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
-    enabled: {
-      type: DataTypes.BOOLEAN,
+    total: {
+      type: DataTypes.FLOAT,
       allowNull: false,
-      defaultValue: true,
     },
   });
 };

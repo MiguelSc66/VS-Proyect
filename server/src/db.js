@@ -7,7 +7,7 @@ const {
   DB_USER, DB_PASSWORD, DB_HOST,
 } = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/tu-basededatos`, {
+const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/versus`, {
   logging: false, 
   native: false, 
 });
@@ -18,17 +18,33 @@ const modelDefiners = [];
 fs.readdirSync(path.join(__dirname, '/models'))
   .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
   .forEach((file) => {
-    modelDefiners.push(require(path.join(__dirname, '/models', file))(sequelize));
+    const modelDefiner = require(path.join(__dirname, '/models', file));
+    modelDefiners.push(modelDefiner);
   });
 
-// Agrega las asociaciones aquí, si las tienes
-const { Users, Drink, Order } = sequelize.models;
+modelDefiners.forEach((modelDefiner) => {
+  modelDefiner(sequelize);
+  console.log(`Model loaded: ${modelDefiner.name}`);
+});
 
-Users.hasMany(Order, { as: "orders" });
-Order.belongsTo(Users);
-Users.hasMany(Drink, { as: "orders" });
-Drink.belongsTo(Users, { as: "user" });
+let entries = Object.entries(sequelize.models);
+let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
+sequelize.models = Object.fromEntries(capsEntries);
 
+const { User, Order, Drink, CartItem } = sequelize.models;
+
+// Define las asociaciones entre modelos
+User.hasMany(Order, { foreignKey: "id" }); // Aquí especificamos la clave foránea userId
+Order.belongsTo(User, { foreignKey: "id" }); // Aquí también especificamos la clave foránea userId
+User.belongsToMany(Drink, { through: "UserDrink" }); // Usamos una tabla intermedia "UserDrink"
+Drink.belongsToMany(User, { through: "UserDrink" }); // Usamos la misma tabla intermedia "UserDrink"
+User.hasOne(User, { foreignKey: "id" }); // Esto parece inusual, verifica si es necesario
+CartItem.belongsTo(User);
+User.hasMany(CartItem);
+CartItem.belongsTo(Drink);
+Drink.hasMany(CartItem);
+
+console.log('Associations defined.');
 
 module.exports = {
   ...sequelize.models,

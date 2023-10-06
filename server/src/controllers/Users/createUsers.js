@@ -3,6 +3,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../../models/Users");
 
+const secretKey = crypto.randomBytes(32).toString("hex");
+
 export const createUser = async (req, res) => {
   try {
     const { name, email, password, phoneNumber, city, country, isAdmin } =
@@ -60,7 +62,7 @@ export const loginUser = async (req, res) => {
     }
 
     // Generar un token de autenticación
-    const token = jwt.sign({ userId: user.id }, "tu_clave_secreta", {
+    const token = jwt.sign({ userId: user.id }, secretKey, {
       expiresIn: "1h", // Cambia esto según tus preferencias
     });
 

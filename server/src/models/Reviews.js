@@ -1,18 +1,19 @@
-import { DataTypes  } from "sequelize";
-const db = require("../db");
+const { DataTypes } = require('sequelize');
 
-export const Reviews = db.define("Reviews", {
+module.exports = (sequelize) => {
+  sequelize.define('Reviews', {
     email: {
-        type: DataTypes.STRING(255),
-        allowNull: false,
+      type: DataTypes.STRING(255),
+      allowNull: false,
     },
     comments: {
-        type: DataTypes.STRING(255),
-        allowNull: false,
+      type: DataTypes.STRING(255),
+      allowNull: false,
     },
     createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     },
-})
+  });
+};
 

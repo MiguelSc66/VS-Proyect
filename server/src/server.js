@@ -36,10 +36,10 @@ app.get('/api/drinks', (req, res) => {
 // Rutas definidas en tu proyecto
 // app.use('/recipes', routerRecipes);
 // app.use('/diets', routerDiets);
-app.use(router); // Asume que tienes un router definido llamado 'router'
-app.use(decodeToken); // Middleware para autenticación con JWT, asegúrate de definirlo
-app.use(routerAuth); // Rutas de autenticación, asegúrate de definirlas
-app.use('/get', routerUsers); // Rutas de usuarios, asegúrate de definirlas
+// app.use(router); // Asume que tienes un router definido llamado 'router'
+// app.use(decodeToken); // Middleware para autenticación con JWT, asegúrate de definirlo
+// app.use(routerAuth); // Rutas de autenticación, asegúrate de definirlas
+// app.use('/get', routerUsers); // Rutas de usuarios, asegúrate de definirlas
 
 // Manejo de errores
 app.use((err, req, res, next) => {
@@ -52,3 +52,5 @@ app.use((err, req, res, next) => {
 app.listen(port, () => {
   console.log(`Servidor escuchando en el puerto ${port}`);
 });
+
+module.exports = app
