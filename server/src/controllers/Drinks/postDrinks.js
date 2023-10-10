@@ -1,6 +1,6 @@
-const Drink = require("../../models/Drink");
+const {Drink} = require("../../db");
 
-export const postDrink = async (req, res) => {
+const postDrink = async (req, res) => {
     try {
         const { name, stock, price, image } = req.body;
 
@@ -24,3 +24,5 @@ export const postDrink = async (req, res) => {
         return res.status(500).json({ error: "Error al crear la bebida" });
     }
 }
+
+module.exports = {postDrink}

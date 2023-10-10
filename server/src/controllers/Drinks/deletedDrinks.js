@@ -1,7 +1,7 @@
-const Drink = require("../../models/Drink");
+const {Drink} = require("../../db");
 
 // Controlador para eliminar un trago por su ID
-export const deleteDrink = async (req, res) => {
+const deleteDrink = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -22,3 +22,5 @@ export const deleteDrink = async (req, res) => {
     res.status(500).json({ message: "Error al eliminar el trago" });
   }
 };
+
+module.exports = {deleteDrink}

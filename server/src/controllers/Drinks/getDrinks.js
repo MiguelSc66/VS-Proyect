@@ -1,6 +1,6 @@
-const Drink = require("../../models/Drink");
+const {Drink} = require("../../db");
 
-export const getDrink = async (req, res) => {
+const getDrink = async (req, res) => {
     try {
         const findDrink = await Drink.findAll()
         return res.status(200).json(findDrink)
@@ -9,7 +9,7 @@ export const getDrink = async (req, res) => {
     }
 }
 
-export const getById = async (req, res) => {
+const getById = async (req, res) => {
     try {
         const {id} = req.param;
         const drinks = await Drink.findAll({where: {id}});
@@ -19,3 +19,5 @@ export const getById = async (req, res) => {
         res.status(500).json({error: err.message})
     }
 }
+
+module.exports = {getById, getDrink}

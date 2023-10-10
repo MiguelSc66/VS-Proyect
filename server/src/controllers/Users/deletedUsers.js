@@ -1,6 +1,6 @@
-const User = require("../../models/Users");
+const {User} = require("../../db");
 
-export const inhabilityUser = async (req, res) => {
+const inhabilityUser = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -23,7 +23,7 @@ export const inhabilityUser = async (req, res) => {
 };
 
 
-export const deleteUser = async (req, res) => {
+const deleteUser = async (req, res) => {
     try {
       const { id } = req.params;
   
@@ -45,7 +45,7 @@ export const deleteUser = async (req, res) => {
     }
 };
 
-export const restoreUser = async (req, res) => {
+const restoreUser = async (req, res) => {
     try {
       const { id } = req.params;
   
@@ -69,3 +69,5 @@ export const restoreUser = async (req, res) => {
       res.status(500).json({ message: "Error al restaurar el usuario" });
     }
 };
+
+module.exports = {deleteUser, restoreUser, inhabilityUser}

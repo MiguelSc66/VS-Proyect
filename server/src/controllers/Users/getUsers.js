@@ -1,7 +1,7 @@
-const {Users} = require("../../db")
+const {User} = require("../../db")
 
-export const getUsers = async () => {
-    const findUsers = await Users.findAll({where: {Admin: false}});
+const getUsers = async () => {
+    const findUsers = await User.findAll({where: {Admin: false}});
 
     if (findUsers){
         return {status: 200, json: findUsers};
@@ -11,8 +11,8 @@ export const getUsers = async () => {
     }
 };
 
-export const getAdmins = async () => {
-    const findAdmins = await Users.findAll({where: {Admin: true}});
+const getAdmins = async () => {
+    const findAdmins = await User.findAll({where: {Admin: true}});
 
     if (findAdmins){
         return {status: 200, json: findAdmins};
@@ -22,3 +22,4 @@ export const getAdmins = async () => {
     }
 };
 
+module.exports = {getUsers, getAdmins}

@@ -1,6 +1,6 @@
 const { Review } = require("../../db");
 
-export const createReview = async (req, res) => {
+const createReview = async (req, res) => {
   try {
     const { email, comment } = req.body;
 
@@ -11,7 +11,7 @@ export const createReview = async (req, res) => {
   }
 };
 
-export const getAllReviews = async () => {
+const getAllReviews = async () => {
   try {
     const reviews = await Review.findAll();
     return { status: 200, json: reviews };
@@ -20,7 +20,7 @@ export const getAllReviews = async () => {
   }
 };
 
-export const deletedReview = async (req, res) => {
+const deletedReview = async (req, res) => {
   try {
     const {id} = req.params;
 
@@ -37,3 +37,5 @@ export const deletedReview = async (req, res) => {
     return res.status(500).json(err)
   }
 }
+
+module.exports = {deletedReview, getAllReviews, createReview}

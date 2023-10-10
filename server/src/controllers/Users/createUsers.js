@@ -1,11 +1,11 @@
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const User = require("../../models/Users");
+const {User} = require("../../db");
 
 const secretKey = crypto.randomBytes(32).toString("hex");
 
-export const createUser = async (req, res) => {
+const createUser = async (req, res) => {
   try {
     const { name, email, password, phoneNumber, city, country, isAdmin } =
       req.body;
@@ -45,7 +45,7 @@ export const createUser = async (req, res) => {
   }
 };
 
-export const loginUser = async (req, res) => {
+const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -72,3 +72,5 @@ export const loginUser = async (req, res) => {
     res.status(500).json({ message: "Error interno del servidor" });
   }
 };
+
+module.exports = {createUser, loginUser}

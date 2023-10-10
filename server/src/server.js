@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const port = process.env.PORT || 5000;
 const app = express();
-
+const router = require('./routes/index');
 // Middlewares
 app.use(cors());
 app.use(cookieParser());
@@ -36,7 +36,7 @@ app.get('/api/drinks', (req, res) => {
 // Rutas definidas en tu proyecto
 // app.use('/recipes', routerRecipes);
 // app.use('/diets', routerDiets);
-// app.use(router); // Asume que tienes un router definido llamado 'router'
+app.use(router); // Asume que tienes un router definido llamado 'router'
 // app.use(decodeToken); // Middleware para autenticación con JWT, asegúrate de definirlo
 // app.use(routerAuth); // Rutas de autenticación, asegúrate de definirlas
 // app.use('/get', routerUsers); // Rutas de usuarios, asegúrate de definirlas

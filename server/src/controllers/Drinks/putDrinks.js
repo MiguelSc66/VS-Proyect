@@ -1,7 +1,7 @@
-const Drink = require("../../models/Drink");
+const {Drink} = require("../../db");
 
 // Ruta para modificar un trago por completo por su ID
-export const updateDrink = async (req, res) => {
+const updateDrink = async (req, res) => {
     try {
         const { id } = req.params; // ID del trago a modificar
         const { name, stock, price, image } = req.body; // Nuevos datos del trago
@@ -30,7 +30,7 @@ export const updateDrink = async (req, res) => {
     }
 };
 
-export const disableDrink = async (req, res) => {
+const disableDrink = async (req, res) => {
     try {
         const { id } = req.params; // ID del trago a deshabilitar
 
@@ -54,3 +54,5 @@ export const disableDrink = async (req, res) => {
         return res.status(500).json({ error: "Error al deshabilitar el trago" });
     }
 };
+
+module.exports = {disableDrink, updateDrink}

@@ -1,10 +1,10 @@
-const User = require("../../models/Users");
+const {User} = require("../../db");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
 const secretKey = crypto.randomBytes(32).toString("hex");
 
-export const loginGoogle = async (req, res) => {
+const loginGoogle = async (req, res) => {
   const { name, email, isAdmin } = req.body;
 
   try {
@@ -35,4 +35,4 @@ export const loginGoogle = async (req, res) => {
   }
 };
 
-
+module.exports = {loginGoogle}

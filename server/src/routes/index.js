@@ -4,36 +4,45 @@ const router = Router();
 
 // Importa los controladores necesarios
 const {
-  getAdmins,
-  getUsers,
+  createUser,
+  loginUser,
+} = require("../controllers/Users/createUsers");
+const {
   inhabilityUser,
   deleteUser,
   restoreUser,
-  createUser,
-  loginUser,
+} = require("../controllers/Users/deletedUsers")
+const {
+  getAdmins,
+  getUsers,
+} = require("../controllers/Users/getUsers")
+const {
   loginGoogle,
-} = require("../controllers/Users");
-
+} = require("../controllers/Users/loginGoogle")
 const {
   createReview,
   getAllReviews,
-  deleteReview,
-} = require("../controllers/Reviews");
-
+  deletedReview,
+} = require("../controllers/Reviews/Reviews");
 const {
-  deleteDrink,
   getDrink,
-  getDrinkById,
-  postDrink,
+  getById,
+} = require("../controllers/Drinks/getDrinks");
+const {
   updateDrink,
   disableDrink,
-} = require("../controllers/Drinks");
-
+} = require("../controllers/Drinks/putDrinks");
+const {
+  postDrink,
+} = require("../controllers/Drinks/postDrinks");
+const {
+  deleteDrink,
+} = require("../controllers/Drinks/deletedDrinks");
 const {
   addToCart,
   removeFromCart,
   updateCartItemQuantity,
-} = require("../controllers/Cart");
+} = require("../controllers/Cart/Cart");
 
 // Configura las rutas
 router.get("/admins", getAdmins);
@@ -47,11 +56,11 @@ router.post("/users/login-google", loginGoogle);
 
 router.post("/reviews/create", createReview);
 router.get("/reviews", getAllReviews);
-router.delete("/reviews/:id", deleteReview);
+router.delete("/reviews/:id", deletedReview);
 
 router.delete("/drinks/:id", deleteDrink);
 router.get("/drinks", getDrink);
-router.get("/drinks/:id", getDrinkById);
+router.get("/drinks/:id", getById);
 router.post("/drinks", postDrink);
 router.put("/drinks/:id", updateDrink);
 router.put("/drinks/disable/:id", disableDrink);
