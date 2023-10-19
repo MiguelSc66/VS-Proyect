@@ -4,23 +4,37 @@ const inhabilityUser = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const userUpdate = await User.upgrade(
-      { deleted: true },
-      { where: { id }, returning: true }
-    );
-    if (userUpdate[0] === 0) {
-        // Si no se encontró ningún usuario con ese ID
-        return res.status(404).json({ message: "Usuario no encontrado" });
+
+    const userFind = await User.update(
+      {isDeleted: true},
+      {
+        where: {
+          id
+        }
+      }
+    )
+    if (userFind) {
+      // const users = {
+      //   id: userFind.id,
+      //   name: userFind.name
+      // }
+      // await Users.destroy({
+      //   where: {
+      //     id,
+      //   },
+      // });
+      res.status(200).json(userFind);
+    } else {
+      res
+        .status(400)
+        .json({ message: "No se ha encontrado el usuario para eliminar" });
     }
-
-    const updatedUser = userUpdate[1][0];
-
-    return res.status(200).json({ message: "Usuario deshabilitado", user: updatedUser });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({error: "Error al deshabilitar el usario"})
+  } catch (error) {
+    res.status(401).json({ message: "Ha fallado la eliminación del usuario" });
   }
 };
+
+
 
 
 const deleteUser = async (req, res) => {
