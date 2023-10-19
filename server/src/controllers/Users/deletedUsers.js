@@ -72,7 +72,7 @@ const restoreUser = async (req, res) => {
       }
   
       // Restaurar el usuario estableciendo deleted en false
-      user.deleted = false;
+      user.isDeleted = false;
   
       // Guardar los cambios en la base de datos
       await user.save();
