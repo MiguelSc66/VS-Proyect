@@ -14,15 +14,6 @@ const inhabilityUser = async (req, res) => {
       }
     )
     if (userFind) {
-      // const users = {
-      //   id: userFind.id,
-      //   name: userFind.name
-      // }
-      // await Users.destroy({
-      //   where: {
-      //     id,
-      //   },
-      // });
       res.status(200).json(userFind);
     } else {
       res
@@ -70,9 +61,13 @@ const restoreUser = async (req, res) => {
       if (!user) {
         return res.status(404).json({ message: "Usuario no encontrado" });
       }
-  
-      // Restaurar el usuario estableciendo deleted en false
-      user.isDeleted = false;
+      
+      if(user.isDeleted === false) {
+        return res.status(409).json({message:"El usuario ya esta activo"})
+      } else {
+        // Restaurar el usuario estableciendo deleted en false
+        user.isDeleted = false;
+      }
   
       // Guardar los cambios en la base de datos
       await user.save();

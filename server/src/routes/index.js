@@ -31,6 +31,7 @@ const {
 const {
   updateDrink,
   disableDrink,
+  restoredDrink,
 } = require("../controllers/Drinks/putDrinks");
 const {
   postDrink,
@@ -42,6 +43,7 @@ const {
   addToCart,
   removeFromCart,
   updateCartItemQuantity,
+  getCartItems,
 } = require("../controllers/Cart/Cart");
 
 // Configura las rutas
@@ -61,12 +63,14 @@ router.delete("/reviews/:id", deletedReview);
 router.delete("/drinks/:id", deleteDrink);
 router.get("/drinks", getDrink);
 router.get("/drinks/:id", getById);
-router.post("/drinks", postDrink);
-router.put("/drinks/:id", updateDrink);
+router.post("/drinks/create", postDrink);
+router.put("/drinks/upgrade/:id", updateDrink);
 router.put("/drinks/disable/:id", disableDrink);
+router.put("drinks/enabled/:id", restoredDrink);
 
+router.get("/cart", getCartItems)
 router.post("/cart/add", addToCart);
-router.delete("/cart/remove/:userId/:cartItemId", removeFromCart);
+router.delete("/cart/remove/:userId/:id", removeFromCart);
 router.put("/cart/update/:cartItemId", updateCartItemQuantity);
 
 module.exports = router;

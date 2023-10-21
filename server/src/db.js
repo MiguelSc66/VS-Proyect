@@ -31,18 +31,14 @@ let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { User, Order, Drink, CartItem } = sequelize.models;
+const { User, Order, Drink,  } = sequelize.models;
 
 // Define las asociaciones entre modelos
 User.hasMany(Order, { foreignKey: "id" }); // Aquí especificamos la clave foránea userId
 Order.belongsTo(User, { foreignKey: "id" }); // Aquí también especificamos la clave foránea userId
 User.belongsToMany(Drink, { through: "UserDrink" }); // Usamos una tabla intermedia "UserDrink"
 Drink.belongsToMany(User, { through: "UserDrink" }); // Usamos la misma tabla intermedia "UserDrink"
-User.hasOne(User, { foreignKey: "id" }); // Esto parece inusual, verifica si es necesario
-CartItem.belongsTo(User);
-User.hasMany(CartItem);
-CartItem.belongsTo(Drink);
-Drink.hasMany(CartItem);
+
 
 console.log('Associations defined.');
 

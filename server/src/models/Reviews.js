@@ -1,19 +1,19 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  sequelize.define('Reviews', {
+  sequelize.define('Review', {
     email: {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
-    comments: {
-      type: DataTypes.STRING(255),
+    comment: {
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
-  });
+  });  
 };
 

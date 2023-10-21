@@ -42,8 +42,12 @@ const disableDrink = async (req, res) => {
             return res.status(404).json({ message: "Trago no encontrado" });
         }
 
-        // Establecer el trago como deshabilitado
-        drink.enabled = false;
+        if(drink.enabled === false) {
+            return res.status(409).json({message: 'El trago ya estaba deshabilitado'})
+        } else {
+            // Establecer el trago como deshabilitado
+            drink.enabled = false;
+        }
 
         // Guardar los cambios en la base de datos
         await drink.save();
@@ -55,4 +59,28 @@ const disableDrink = async (req, res) => {
     }
 };
 
-module.exports = {disableDrink, updateDrink}
+const restoredDrink = async (req, res) => {
+    try {
+        const {id} = req.params;
+
+        const drink = await Drink.findByPk(id);
+
+        if(!drink) {
+            return res.status(404).json({message: 'Trago no encontrado'});
+        }
+
+        if(drink.enable === true) {
+            return res.status(409).json({message: 'El trago ya estaba habilitado'})
+        } else {
+            drink.enabled = true;
+        }
+
+        await drink.save();
+
+        return res.status(200).json({ message: "Trago habilitado exitosamente", drink})
+    } catch (err) {
+        return res.status(500).json({ error: err})
+    }
+}
+
+module.exports = {disableDrink, updateDrink, restoredDrink}

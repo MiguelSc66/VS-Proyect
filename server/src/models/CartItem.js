@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     userId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
     },
     productName: {
@@ -21,14 +21,13 @@ module.exports = (sequelize) => {
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 0,
     },
     image: {
       type: DataTypes.STRING,
-    },
-    total: {
-      type: DataTypes.FLOAT,
       allowNull: false,
     },
+  }, {
+    // Indica que no quieres que se generen campos relacionados UserId y DrinkId
+    timestamps: false,
   });
 };

@@ -7,16 +7,19 @@ const createReview = async (req, res) => {
     const newReview = await Review.create({ email, comment });
     res.status(201).json(newReview);
   } catch (error) {
+    console.error("Error al crear la revisión:", error);
     res.status(500).json({ error: "Error interno del servidor" });
   }
 };
 
-const getAllReviews = async () => {
+
+const getAllReviews = async (req, res) => {
   try {
     const reviews = await Review.findAll();
-    return { status: 200, json: reviews };
+    res.status(200).json(reviews);
   } catch (error) {
-    return { status: 500, json: "Error al traer los reviews" };
+    console.error("Error al traer los reviews:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 };
 
