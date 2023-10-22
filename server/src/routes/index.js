@@ -46,6 +46,10 @@ const {
   getCartItems,
 } = require("../controllers/Cart/Cart");
 
+const {
+  postOrder,
+} = require("../controllers/Order/orders")
+
 // Configura las rutas
 router.get("/admins", getAdmins);
 router.get("/users", getUsers);
@@ -71,6 +75,6 @@ router.put("drinks/enabled/:id", restoredDrink);
 router.get("/cart", getCartItems)
 router.post("/cart/add", addToCart);
 router.delete("/cart/remove/:userId/:id", removeFromCart);
-router.put("/cart/update/:cartItemId", updateCartItemQuantity);
+router.put("/cart/update/:id", updateCartItemQuantity);
 
 module.exports = router;

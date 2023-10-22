@@ -80,10 +80,10 @@ const removeFromCart = async (req, res) => {
 // Actualizar la cantidad de un elemento en el carrito
 const updateCartItemQuantity = async (req, res) => {
   try {
-    const { cartItemId } = req.params;
+    const { id } = req.params;
     const { quantity } = req.body;
 
-    const cartItem = await CartItem.findByPk(cartItemId);
+    const cartItem = await CartItem.findByPk(id);
 
     if (!cartItem) {
       return res.status(404).json({ message: 'Elemento del carrito no encontrado' });
