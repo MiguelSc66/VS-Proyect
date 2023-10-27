@@ -9,6 +9,7 @@ body {
       rgb(24, 24, 24), 
       rgb(32, 32, 32)  
     );
+    background-color: black;
 }
 * {
     font-family: 'Inter', sans-serif;

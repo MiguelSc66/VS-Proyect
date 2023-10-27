@@ -1,4 +1,4 @@
-import { Order } from "../../db";
+const { Order } = require("../../db") ;
 
 const history = async () => {
   const youOrder = await Order.findAll();
