@@ -1,6 +1,9 @@
 const server = require('./src/server')
 const {conn} = require("./src/db");
-const {PORT} = require("./config");
+require("dotenv").config();
+const {
+  PORT
+} = process.env;
 
 conn.sync({force: false}).then(() => {
   server.listen(PORT, async () => {

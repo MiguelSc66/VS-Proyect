@@ -17,19 +17,19 @@ export const getAllUsers = () => async (dispatch) => {
             payload : data
         });
     } catch (err) {
-        console.err("Error al traer a los usarios", err)
+        console.error("Error al traer a los usarios", err)
     }
 };
 
 export const getAllDrinks = () => async (dispatch) => {
     try {
-        const {data} = await axios.get("http://localhost:3001/drinks")
+        const {data} = await axios.get("https://difficult-rail-production.up.railway.app/drinks")
         console.log(data)
         return dispatch ({
             type : GET_ALL_DRINKS,
             payload : data
         });
     } catch (err) {
-        console.err("Error al traer a los tragos", err)
+        console.error("Error al traer a los tragos", err)
     }
 }

@@ -9,11 +9,11 @@ export default function Cards({ drinks }) {
             key={index}
             className="bg-white rounded-lg shadow-lg overflow-hidden"
           >
-            <div className="h-64 bg-cover bg-center">
-              <img src={card.image} alt={card.name} className="w-full h-full object-cover" />
+            <div className="h-64 bg-cover bg-center flex items-center justify-center bg-slate-400">
+              <img src={card.image} alt={card.name} className="w-22 h-[25vh] flex " />
             </div>
             <div className="p-4">
-              <h2 className="text-xl font-bold mb-2">{card.name}</h2>
+              <h2 className="text-xl font-bold mb-2 text-black">{card.name}</h2>
               <p className="text-gray-500 text-sm">Stock: {card.stock}</p>
               <p className="text-green-600 font-semibold text-lg mt-2">${card.price}</p>
             </div>
