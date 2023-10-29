@@ -4,7 +4,7 @@ const fs = require('fs');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 const app = express();
 const router = require('./routes/index');
 // Middlewares
@@ -49,8 +49,8 @@ app.use((err, req, res, next) => {
   res.status(status).send(message);
 });
 
-app.listen(port, () => {
-  console.log(`Servidor escuchando en el puerto ${port}`);
+app.listen(PORT, () => {
+  console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
 
 module.exports = app
