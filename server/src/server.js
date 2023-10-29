@@ -49,8 +49,6 @@ app.use((err, req, res, next) => {
   res.status(status).send(message);
 });
 
-app.listen(PORT, () => {
-  console.log(`Servidor escuchando en el puerto ${PORT}`);
-});
+
 
 module.exports = app
