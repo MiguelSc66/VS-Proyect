@@ -3,7 +3,10 @@ export const GET_ALL_USERS = "GET_ALL_USERS";
 export const GET_ALL_ADMINS = "GET_ALL_ADMINS";
 export const GET_ALL_DRINKS = "GET_ALL_DRINKS";
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
-
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAILURE = "LOGIN_FAILURE";
+export const LOGOUT = "LOGOUT"
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 
 
 
@@ -23,7 +26,7 @@ export const getAllUsers = () => async (dispatch) => {
 
 export const getAllDrinks = () => async (dispatch) => {
     try {
-        const {data} = await axios.get("https://difficult-rail-production.up.railway.app/drinks")
+        const {data} = await axios.get("https://proyectnext-production.up.railway.app/drinks")
         console.log(data)
         return dispatch ({
             type : GET_ALL_DRINKS,
@@ -31,5 +34,18 @@ export const getAllDrinks = () => async (dispatch) => {
         });
     } catch (err) {
         console.error("Error al traer a los tragos", err)
+    }
+}
+
+export const loginUser = (loginData) => async (dispatch) => {
+    try {
+        const {data} = await axios.post("https://proyectnext-production.up.railway.app/users/login", loginData);
+
+        dispatch({
+            type : LOGIN_SUCCESS,
+            payload : data,
+        });
+    } catch (err) {
+        console.error(err)
     }
 }
