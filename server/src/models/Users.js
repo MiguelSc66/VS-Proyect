@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     age: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     email: {
@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
       unique: true,
     },
     DNI: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     password: {
