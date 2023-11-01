@@ -53,14 +53,14 @@ export const getAllAdmins = () => async (dispatch) => {
 
 export const createUser = (newUser) => async (dispatch) => {
     try {
+        console.log(newUser)
         const {data} = await axios.post("https://proyectnext-production.up.railway.app/users/create", newUser);
-
         return dispatch({
             type : CREATE_NEW_USER,
             payload : data
         })
     } catch (err) {
-        
+        console.error("no se creo el usario",err)
     }
 }
 

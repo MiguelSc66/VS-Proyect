@@ -20,7 +20,7 @@ export default function RegistrationForm() {
         Registrarse
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)} className='bg-gray-400 mt-20 lg:w-[130vh] rounded-lg '>
-        <Grid container spacing={5} className=''>
+        <Grid container spacing={5}>
           <Grid item xs={5}>
             <Controller
               name="name"
@@ -41,7 +41,7 @@ export default function RegistrationForm() {
           </Grid>
           <Grid item xs={5}>
             <Controller
-              name="edad"
+              name="age"
               control={control}
               defaultValue=""
               rules={{ required: 'Campo requerido', min: 18 }}
@@ -132,7 +132,7 @@ export default function RegistrationForm() {
           </Grid>
           <Grid item xs={5}>
             <Controller
-              name="telefono"
+              name="phoneNumber"
               control={control}
               defaultValue=""
               render={({ field }) => (
@@ -147,7 +147,7 @@ export default function RegistrationForm() {
           </Grid>
           <Grid item xs={5}>
             <Controller
-              name="ciudad"
+              name="city"
               control={control}
               defaultValue=""
               render={({ field }) => (
