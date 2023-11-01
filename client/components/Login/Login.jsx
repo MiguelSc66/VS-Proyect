@@ -1,8 +1,37 @@
 "use client"
 import { Container, TextField, Typography, Button } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { loginUser, getAllAdmins, getAllUsers } from '@/redux/actions';
+
 
 function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [token, setToken] = useState("");
+  const [authy, setAuthy] = useState(false);
+  const dispatch = useDispatch();
+
+  const authe = useSelector((state) => state.token);
+  const user = useSelector((state) => state.users);
+  const admin = useSelector((state) => state.admins);
+  console.log(user)
+
+
+  useEffect(() => {
+    dispatch(getAllAdmins());
+    dispatch(getAllUsers());
+  }, [dispatch])
+  
+  const filterAdmin = admin.filter((us) => {
+    return us.isAdmin === true && email === us.email;
+  });
+  const filterUser = user.filter((us) => {
+    return us.isAdmin === false && email === us.email;
+  });
+
+
   const {
     handleSubmit,
     control,
@@ -10,7 +39,7 @@ function LoginForm() {
   } = useForm();
 
   const onSubmit = (data) => {
-    // Aquí puedes realizar la lógica de inicio de sesión, como enviar los datos al servidor
+    
     console.log(data);
   };
 

@@ -7,6 +7,7 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const LOGOUT = "LOGOUT"
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const CREATE_NEW_USER = "CREATE_NEW_USER"
 
 
 
@@ -34,6 +35,32 @@ export const getAllDrinks = () => async (dispatch) => {
         });
     } catch (err) {
         console.error("Error al traer a los tragos", err)
+    }
+}
+
+export const getAllAdmins = () => async (dispatch) => {
+    try {
+        const {data} = await axios.get("https://proyectnext-production.up.railway.app/admins")
+
+        return dispatch({
+            type : GET_ALL_ADMINS,
+            payload : data
+        })
+    } catch (err) {
+        console.error("Error al traer a los usarios", err)
+    }
+}
+
+export const createUser = (newUser) => async (dispatch) => {
+    try {
+        const {data} = await axios.post("https://proyectnext-production.up.railway.app/users/create", newUser);
+
+        return dispatch({
+            type : CREATE_NEW_USER,
+            payload : data
+        })
+    } catch (err) {
+        
     }
 }
 

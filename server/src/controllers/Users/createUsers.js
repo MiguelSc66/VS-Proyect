@@ -7,7 +7,7 @@ const secretKey = crypto.randomBytes(32).toString("hex");
 
 const createUser = async (req, res) => {
   try {
-    const { name, email, password, phoneNumber, city, country, isAdmin } =
+    const { name, age, email, DNI, password, phoneNumber, city, country, isAdmin } =
       req.body;
 
     // Verificar si el correo electrónico ya está registrado
@@ -27,7 +27,9 @@ const createUser = async (req, res) => {
     // Crear el nuevo usuario en la base de datos
     const newUser = await User.create({
       name,
+      age,
       email,
+      DNI,
       password: hashedPassword,
       phoneNumber,
       city,

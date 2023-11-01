@@ -1,17 +1,17 @@
-"use client"
 import { useForm, Controller } from 'react-hook-form';
 import { TextField, Button, Grid, Typography, Container } from '@mui/material';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';;
+import { createUser } from '@/redux/actions';
 
 export default function RegistrationForm() {
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm();
+  const { control, handleSubmit, formState: { errors } } = useForm();
+  const dispatch = useDispatch();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     // Realiza la lógica de registro aquí
     console.log(data);
+    await dispatch(createUser(data)); // Envía los datos del formulario a la acción de Redux
   };
 
   return (
@@ -23,7 +23,7 @@ export default function RegistrationForm() {
         <Grid container spacing={5} className=''>
           <Grid item xs={5}>
             <Controller
-              name="nombre"
+              name="name"
               control={control}
               defaultValue=""
               rules={{ required: 'Campo requerido' }}
@@ -32,9 +32,9 @@ export default function RegistrationForm() {
                   {...field}
                   label="Nombre"
                   fullWidth
-                  className=' mx-16'
-                  error={Boolean(errors.nombre)}
-                  helperText={errors.nombre?.message}
+                  className='mx-4'
+                  error={Boolean(errors.name)}
+                  helperText={errors.name?.message}
                 />
               )}
             />
@@ -50,7 +50,7 @@ export default function RegistrationForm() {
                   {...field}
                   label="Edad"
                   fullWidth
-                  className=' ml-20'
+                  className='ml-4'
                   error={Boolean(errors.edad)}
                   helperText={errors.edad?.message}
                 />
@@ -74,7 +74,7 @@ export default function RegistrationForm() {
                   {...field}
                   label="DNI"
                   fullWidth
-                  className=' mx-16'
+                  className='mx-4'
                   error={Boolean(errors.dni)}
                   helperText={errors.dni?.message}
                 />
@@ -89,7 +89,7 @@ export default function RegistrationForm() {
               rules={{
                 required: 'Campo requerido',
                 pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                  value: /^[a-zA-Z0-9._%+-]+@[a-zAZ0-9.-]+\.[a-zA-Z]{2,4}$/,
                   message: 'Email no válido',
                 },
               }}
@@ -98,7 +98,7 @@ export default function RegistrationForm() {
                   {...field}
                   label="Email"
                   fullWidth
-                  className=' ml-20'
+                  className='ml-4'
                   error={Boolean(errors.email)}
                   helperText={errors.email?.message}
                 />
@@ -123,7 +123,7 @@ export default function RegistrationForm() {
                   label="Contraseña"
                   type="password"
                   fullWidth
-                  className=' mx-16'
+                  className='mx-4'
                   error={Boolean(errors.password)}
                   helperText={errors.password?.message}
                 />
@@ -136,7 +136,12 @@ export default function RegistrationForm() {
               control={control}
               defaultValue=""
               render={({ field }) => (
-                <TextField {...field} label="Teléfono" fullWidth className=' ml-20' />
+                <TextField
+                  {...field}
+                  label="Teléfono"
+                  fullWidth
+                  className='ml-4'
+                />
               )}
             />
           </Grid>
@@ -146,7 +151,11 @@ export default function RegistrationForm() {
               control={control}
               defaultValue=""
               render={({ field }) => (
-                <TextField {...field} label="Ciudad" fullWidth className=' mx-16'
+                <TextField
+                  {...field}
+                  label="Ciudad"
+                  fullWidth
+                  className='mx-4'
                 />
               )}
             />
@@ -157,7 +166,12 @@ export default function RegistrationForm() {
               control={control}
               defaultValue=""
               render={({ field }) => (
-                <TextField {...field} label="País" fullWidth className=' ml-20'/>
+                <TextField
+                  {...field}
+                  label="País"
+                  fullWidth
+                  className='ml-4'
+                />
               )}
             />
           </Grid>
