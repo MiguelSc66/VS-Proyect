@@ -10,10 +10,10 @@ export default function NavBar() {
             <Link href="/">Home</Link>
           </button>
           <button>
-            <Link href="/about">About</Link>
+            <Link href="/login">Login</Link>
           </button>
           <button>
-            <Link href="/tienda">Tienda</Link>
+            <Link href="/register">Registro</Link>
           </button>
         </div>
       </div>

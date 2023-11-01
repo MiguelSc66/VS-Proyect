@@ -16,12 +16,12 @@ export default function RegistrationForm() {
 
   return (
     <Container>
-      <Typography variant="h4" component="h2">
-        Registro
+      <Typography variant="h4" component="h2" className='flex justify-center items-center mt-28'>
+        Registrarse
       </Typography>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid container spacing={3}>
-          <Grid item xs={6}>
+      <form onSubmit={handleSubmit(onSubmit)} className='bg-gray-400 mt-20 lg:w-[130vh] rounded-lg '>
+        <Grid container spacing={5} className=''>
+          <Grid item xs={5}>
             <Controller
               name="nombre"
               control={control}
@@ -32,30 +32,32 @@ export default function RegistrationForm() {
                   {...field}
                   label="Nombre"
                   fullWidth
+                  className=' mx-16'
                   error={Boolean(errors.nombre)}
                   helperText={errors.nombre?.message}
                 />
               )}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={5}>
             <Controller
               name="edad"
               control={control}
               defaultValue=""
-              rules={{ required: 'Campo requerido' }}
+              rules={{ required: 'Campo requerido', min: 18 }}
               render={({ field }) => (
                 <TextField
                   {...field}
                   label="Edad"
                   fullWidth
+                  className=' ml-20'
                   error={Boolean(errors.edad)}
                   helperText={errors.edad?.message}
                 />
               )}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={5}>
             <Controller
               name="dni"
               control={control}
@@ -72,13 +74,14 @@ export default function RegistrationForm() {
                   {...field}
                   label="DNI"
                   fullWidth
+                  className=' mx-16'
                   error={Boolean(errors.dni)}
                   helperText={errors.dni?.message}
                 />
               )}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={5}>
             <Controller
               name="email"
               control={control}
@@ -95,13 +98,14 @@ export default function RegistrationForm() {
                   {...field}
                   label="Email"
                   fullWidth
+                  className=' ml-20'
                   error={Boolean(errors.email)}
                   helperText={errors.email?.message}
                 />
               )}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={5}>
             <Controller
               name="password"
               control={control}
@@ -119,44 +123,46 @@ export default function RegistrationForm() {
                   label="Contraseña"
                   type="password"
                   fullWidth
+                  className=' mx-16'
                   error={Boolean(errors.password)}
                   helperText={errors.password?.message}
                 />
               )}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={5}>
             <Controller
               name="telefono"
               control={control}
               defaultValue=""
               render={({ field }) => (
-                <TextField {...field} label="Teléfono" fullWidth />
+                <TextField {...field} label="Teléfono" fullWidth className=' ml-20' />
               )}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={5}>
             <Controller
               name="ciudad"
               control={control}
               defaultValue=""
               render={({ field }) => (
-                <TextField {...field} label="Ciudad" fullWidth />
+                <TextField {...field} label="Ciudad" fullWidth className=' mx-16'
+                />
               )}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={5}>
             <Controller
               name="pais"
               control={control}
               defaultValue=""
               render={({ field }) => (
-                <TextField {...field} label="País" fullWidth />
+                <TextField {...field} label="País" fullWidth className=' ml-20'/>
               )}
             />
           </Grid>
         </Grid>
-        <Button type="submit" variant="contained" color="primary">
+        <Button type="submit" variant="contained" color="primary" className='lg:ml-[55vh] mt-8 mb-3'>
           Registrar
         </Button>
       </form>

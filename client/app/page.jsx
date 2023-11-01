@@ -10,7 +10,6 @@ export default function Home() {
 
   const dispatch = useDispatch();
   const drinks = useSelector(state => state.drinks);
-  console.log(drinks)
 
   useEffect(() => {
     dispatch(getAllDrinks());
@@ -22,7 +21,7 @@ export default function Home() {
         <img
           src="https://res.cloudinary.com/duclhjrri/image/upload/v1695577547/Dise%C3%B1o_sin_t%C3%ADtulo-removebg_kx4uab.png"
           alt="logo"
-          className="w-3/4 sm:w-2/4 md:w-1/3 lg:w-1/4"
+          className=" sm:w-2/4 md:w-1/3 lg:w-1/4 pointer-events-none"
         />
       </div>
       <div className={`w-11/12 sm:w-10/12 md:w-9/12 lg:w-8/12 xl:w-7/12 mx-auto sm:h-[10vh] md:h-[10vh] lg:h-[10vh]  bg-slate-900 shadow-lg shadow-black  mt-5`}>
