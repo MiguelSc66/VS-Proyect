@@ -162,7 +162,7 @@ export default function RegistrationForm() {
           </Grid>
           <Grid item xs={5}>
             <Controller
-              name="pais"
+              name="country"
               control={control}
               defaultValue=""
               render={({ field }) => (
