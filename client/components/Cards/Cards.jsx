@@ -11,7 +11,7 @@ export default function Cards({ drinks }) {
             key={index}
             className="bg-white rounded-lg shadow-lg overflow-hidden"
           >
-            <div className="h-64 bg-cover bg-center flex items-center justify-center bg-slate-400">
+            <div className="h-60 bg-cover bg-center flex items-center justify-center bg-slate-400">
               <img src={card.image} alt={card.name} className="w-22 h-[25vh] flex " />
             </div>
             <div className="p-4">

@@ -1,17 +1,17 @@
 import { useForm, Controller } from 'react-hook-form';
 import { TextField, Button, Grid, Typography, Container } from '@mui/material';
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';;
 import { createUser } from '@/redux/actions';
 
 export default function RegistrationForm() {
-  const { control, handleSubmit, formState: { errors } } = useForm();
+  const { control, handleSubmit, reset, formState: { errors } } = useForm();
   const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
     // Realiza la lógica de registro aquí
     console.log(data);
     await dispatch(createUser(data)); // Envía los datos del formulario a la acción de Redux
+    reset();
   };
 
   return (
@@ -30,7 +30,7 @@ export default function RegistrationForm() {
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="Nombre"
+                  label="Nombre Completo"
                   fullWidth
                   className='mx-4'
                   error={Boolean(errors.name)}
