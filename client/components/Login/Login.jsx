@@ -1,14 +1,13 @@
-"use client"
-import { Container, TextField, Typography, Button } from '@mui/material';
-import { useForm, Controller } from 'react-hook-form';
+"use client";
+import { Container, TextField, Typography, Button } from "@mui/material";
+import { useForm, Controller } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { loginUser, getAllAdmins, getAllUsers } from '@/redux/actions';
+import { loginUser, getAllAdmins, getAllUsers } from "@/redux/actions";
 
 
 function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  
   const [token, setToken] = useState("");
   const [authy, setAuthy] = useState(false);
   const dispatch = useDispatch();
@@ -16,57 +15,58 @@ function LoginForm() {
   const authe = useSelector((state) => state.token);
   const user = useSelector((state) => state.users);
   const admin = useSelector((state) => state.admins);
-  console.log(user)
-
 
   useEffect(() => {
     dispatch(getAllAdmins());
     dispatch(getAllUsers());
-  }, [dispatch])
-  
-  const filterAdmin = admin.filter((us) => {
-    return us.isAdmin === true && email === us.email;
-  });
-  const filterUser = user.filter((us) => {
-    return us.isAdmin === false && email === us.email;
-  });
-
+  }, [dispatch]);
 
   const {
     handleSubmit,
+    reset,
     control,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
+    dispatch(loginUser(data));
+    // agregar toats para confirmar login
     
-    console.log(data);
+    reset();
   };
 
   return (
     <Container>
-      <Typography variant="h4" component="h2" className='flex justify-center items-center mt-28'>
+      <Typography
+        variant="h4"
+        component="h2"
+        className="flex justify-center items-center mt-28"
+      >
         Iniciar Sesión
       </Typography>
-      <form onSubmit={handleSubmit(onSubmit)} className='bg-gray-400 mt-20 lg:w-[130vh] rounded-lg'>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="bg-gray-400 mt-20 lg:w-[130vh] rounded-lg"
+      >
         <Controller
           name="email"
           control={control}
           defaultValue=""
           rules={{
-            required: 'Campo requerido',
+            required: "Campo requerido",
             pattern: {
               value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-              message: 'Correo electrónico no válido',
+              message: "Correo electrónico no válido",
             },
           }}
           render={({ field }) => (
             <TextField
+              type="text"
               label="Correo Electrónico"
               variant="outlined"
               fullWidth
               margin="normal"
-              className='lg:w-[100vh] ml-24'
+              className="lg:w-[100vh] ml-24"
               {...field}
             />
           )}
@@ -78,10 +78,10 @@ function LoginForm() {
           control={control}
           defaultValue=""
           rules={{
-            required: 'Campo requerido',
+            required: "Campo requerido",
             minLength: {
               value: 8,
-              message: 'La contraseña debe tener al menos 8 caracteres',
+              message: "La contraseña debe tener al menos 8 caracteres",
             },
           }}
           render={({ field }) => (
@@ -90,7 +90,7 @@ function LoginForm() {
               label="Contraseña"
               variant="outlined"
               fullWidth
-              className='lg:w-[100vh] ml-24'
+              className="lg:w-[100vh] ml-24"
               margin="normal"
               {...field}
             />
@@ -103,7 +103,7 @@ function LoginForm() {
           variant="contained"
           color="primary"
           fullWidth
-          className=' h-16 lg:w-[30vh] lg:ml-[46vh] mb-3'
+          className=" h-16 lg:w-[30vh] lg:ml-[46vh] mb-3"
         >
           Iniciar Sesión
         </Button>

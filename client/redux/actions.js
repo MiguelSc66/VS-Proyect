@@ -14,7 +14,8 @@ export const CREATE_NEW_USER = "CREATE_NEW_USER"
 
 export const getAllUsers = () => async (dispatch) => {
     try {
-        const {data} = await axios.get("http://localhost:3001/users");
+        const {data} = await axios.get("https://proyectnext-production.up.railway.app/users");
+        console.log(data)
         
         return dispatch ({
             type : GET_ALL_USERS,
@@ -41,6 +42,7 @@ export const getAllDrinks = () => async (dispatch) => {
 export const getAllAdmins = () => async (dispatch) => {
     try {
         const {data} = await axios.get("https://proyectnext-production.up.railway.app/admins")
+        console.log(data)
 
         return dispatch({
             type : GET_ALL_ADMINS,
@@ -76,3 +78,11 @@ export const loginUser = (loginData) => async (dispatch) => {
         console.error(err)
     }
 }
+
+export const logoutUser = () => (dispatch) => {
+    // Eliminar el token de autenticación del almacenamiento local (o donde lo tengas almacenado)
+    localStorage.removeItem("token");
+    
+    // Despachar la acción de cierre de sesión
+    dispatch({ type: LOGOUT });
+};
