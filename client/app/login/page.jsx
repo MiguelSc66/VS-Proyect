@@ -1,4 +1,3 @@
-"use client"
 import LoginForm from "@/components/Login/Login"
 
 export default function Login() {

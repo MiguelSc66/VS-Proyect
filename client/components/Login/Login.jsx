@@ -7,56 +7,40 @@ import { loginUser, getAllAdmins, getAllUsers } from "@/redux/actions";
 
 
 function LoginForm() {
-  
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState('');
   const [authy, setAuthy] = useState(false);
   const dispatch = useDispatch();
-
   const authe = useSelector((state) => state.token);
-  const user = useSelector((state) => state.users);
-  const admin = useSelector((state) => state.admins);
 
   useEffect(() => {
     dispatch(getAllAdmins());
     dispatch(getAllUsers());
   }, [dispatch]);
 
-  const {
-    handleSubmit,
-    reset,
-    control,
-    formState: { errors },
-  } = useForm();
+  const { handleSubmit, reset, control, formState: { errors } } = useForm();
 
   const onSubmit = (data) => {
     dispatch(loginUser(data));
-    // agregar toats para confirmar login
-    
     reset();
   };
 
+
+
   return (
-    <Container>
-      <Typography
-        variant="h4"
-        component="h2"
-        className="flex justify-center items-center mt-28"
-      >
+    <Container className="p-8 lg:mt-32 md:mt-32 sm:mt-32 mt-20 ">
+      <Typography variant="h4" component="h2" className="text-center ">
         Iniciar Sesión
       </Typography>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="bg-gray-400 mt-20 lg:w-[130vh] rounded-lg"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-400 mt-4 rounded-lg p-4">
         <Controller
           name="email"
           control={control}
           defaultValue=""
           rules={{
-            required: "Campo requerido",
+            required: 'Campo requerido',
             pattern: {
               value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-              message: "Correo electrónico no válido",
+              message: 'Correo electrónico no válido',
             },
           }}
           render={({ field }) => (
@@ -66,22 +50,21 @@ function LoginForm() {
               variant="outlined"
               fullWidth
               margin="normal"
-              className="lg:w-[100vh] ml-24"
               {...field}
             />
           )}
         />
-        {errors.email && <p>{errors.email.message}</p>}
+        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
 
         <Controller
           name="password"
           control={control}
           defaultValue=""
           rules={{
-            required: "Campo requerido",
+            required: 'Campo requerido',
             minLength: {
               value: 8,
-              message: "La contraseña debe tener al menos 8 caracteres",
+              message: 'La contraseña debe tener al menos 8 caracteres',
             },
           }}
           render={({ field }) => (
@@ -90,20 +73,19 @@ function LoginForm() {
               label="Contraseña"
               variant="outlined"
               fullWidth
-              className="lg:w-[100vh] ml-24"
               margin="normal"
               {...field}
             />
           )}
         />
-        {errors.password && <p>{errors.password.message}</p>}
+        {errors.password && <p className="text-red-500">{errors.password.message}</p>}
 
         <Button
           type="submit"
           variant="contained"
           color="primary"
           fullWidth
-          className=" h-16 lg:w-[30vh] lg:ml-[46vh] mb-3"
+          className="mt-4 sm:mt-20"
         >
           Iniciar Sesión
         </Button>
