@@ -12,7 +12,8 @@ export default function NavBar() {
   const filtro = admin.filter((us) => {
     return email === us.email;
   });
-
+  console.log(email)
+  console.log(admin)
   let panel; // Declarar la variable panel aquí
 
   useEffect(() => {
@@ -34,6 +35,7 @@ export default function NavBar() {
     dispatch(logoutUser());
   };
 
+  console.log(filtro)
   return (
     <nav className="w-full mt-0 h-32 bg-black bg-opacity-50">
       <div className="flex justify-center items-center h-full">
@@ -45,9 +47,7 @@ export default function NavBar() {
             <>
               <button>
                 <Link href="/login">Login</Link>
-              </button>
-              <button>
-                <Link href="/register">Registro</Link>
+                /<Link href="/register">Registro</Link>
               </button>
             </>
           ) : (
