@@ -12,18 +12,13 @@ export default function NavBar() {
   const filtro = admin.filter((us) => {
     return email === us.email;
   });
-  console.log(email)
-  console.log(admin)
   let panel; // Declarar la variable panel aquí
 
   useEffect(() => {
     if (filtro.length > 0 && token) {
       panel = document.getElementById("dashboard"); // Asignar valor a panel
-      panel.classList.remove("hidden");
     } else if (!token) {
-      if (panel) {
-        panel.classList.add("hidden"); // Verificar si panel está definida antes de usarla
-      }
+      
     }
   }, [filtro]);
 
@@ -35,7 +30,6 @@ export default function NavBar() {
     dispatch(logoutUser());
   };
 
-  console.log(filtro)
   return (
     <nav className="w-full mt-0 h-32 bg-black bg-opacity-50">
       <div className="flex justify-center items-center h-full">
