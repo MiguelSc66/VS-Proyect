@@ -4,8 +4,10 @@ import "./styles/globals.css"
 import {metadata} from "./meta/metadata"
 import { Provider } from "react-redux"
 import store from "@/redux/store"
+import { SessionProvider } from "next-auth/react"
+import SessionAuthProvider from "@/context/SessionAuthProvider"
 
-export default function RootLayout({ children, hideNavBar }) {
+export default function RootLayout({ children, hideNavBar, pageProps  }) {
 
   return (
     <html lang="en">
@@ -14,13 +16,14 @@ export default function RootLayout({ children, hideNavBar }) {
         <meta name="description" content={metadata.description} />
       </head>
       <body className="cabecera  pt-safe-top text-white">
-        {/* Envuelve tu aplicación con el Provider y proporciona la tienda */}
-        <Provider store={store}>
-          {!hideNavBar && (
-            <NavBar />
-          )}
-          {children}
-        </Provider>
+        <SessionAuthProvider>
+            <Provider store={store}>
+              {!hideNavBar && (
+                <NavBar />
+              )}
+              {children}
+            </Provider>
+        </SessionAuthProvider>
       </body>
     </html>
   );

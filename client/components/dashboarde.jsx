@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllUsers, getAllAdmins, getAllDrinks } from "@/redux/actions";
 import { Container, Paper, Typography, List, ListItem, ListItemText } from "@mui/material";
-import { requireAuthentication } from "@/middleware/middleware"; // Asegúrate de importar tu middleware de autenticación
+
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -62,5 +62,5 @@ const Dashboard = () => {
 
 export default Dashboard;
 
-// Aplica el middleware de autenticación a esta ruta
-export const getServerSideProps = requireAuthentication;
+
+

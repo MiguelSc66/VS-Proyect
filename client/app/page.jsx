@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Cards from "@/components/Cards/Cards";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllDrinks } from "@/redux/actions";
+import ButtonAuth from "@/components/buttom/buttomAuth";
 
 export default function Home() {
   const [pageSize, setPageSize] = useState(6);
@@ -60,6 +61,7 @@ export default function Home() {
           Siguiente
         </button>
       </div>
+      <ButtonAuth/>
     </div>
   );
 }
