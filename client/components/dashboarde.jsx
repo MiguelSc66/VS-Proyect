@@ -10,7 +10,7 @@ const Dashboard = () => {
   const users = useSelector((state) => state.users);
   const admins = useSelector((state) => state.admins);
   const drinks = useSelector((state) => state.drinks);
-
+  
   useEffect(() => {
     // Obtener la información de usuarios, administradores y tragos disponibles al cargar el panel
     dispatch(getAllUsers());

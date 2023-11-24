@@ -12,13 +12,13 @@ export default function NavBar() {
   const filtro = admin.filter((us) => {
     return email === us.email;
   });
-  let panel; // Declarar la variable panel aquí
+  let panel = null; // Declarar la variable panel aquí
 
   useEffect(() => {
     if (filtro.length > 0 && token) {
       panel = document.getElementById("dashboard"); // Asignar valor a panel
     } else if (!token) {
-      
+      return
     }
   }, [filtro]);
 
