@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser, getAllAdmins } from "@/redux/actions";
 
-
 export default function NavBar() {
   const dispatch = useDispatch();
   const admin = useSelector((state) => state.admins);
@@ -15,16 +14,6 @@ export default function NavBar() {
   });
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      // Código que interactúa con el DOM aquí
-      const panel = document.getElementById("dashboard");
-      if (filtro.length > 0 && token && panel) {
-        // Hacer algo con el panel
-      }
-    }
-  }, [filtro, token]);
-
-  useEffect(() => {
     dispatch(getAllAdmins());
   }, [dispatch]);
 
@@ -32,6 +21,7 @@ export default function NavBar() {
     dispatch(logoutUser());
   };
 
+  
   return (
     <nav className="w-full mt-0 h-32 bg-black bg-opacity-50">
       <div className="flex justify-center items-center h-full">
@@ -39,20 +29,24 @@ export default function NavBar() {
           <button>
             <Link href="/">Home</Link>
           </button>
-          {token ? (
+          {!token ? (
             <>
-              {filtro.length > 0 && token && (
-                <button id="dashboard">
-                  <Link href="/dashboard">Panel</Link>
-                </button>
-              )}
-              <button onClick={handleLogout}>Logout</button>
+              <button key="login">
+                <Link href="/login">Login</Link>
+              </button>
+              <button key="register">
+                <Link href="/register">Registro</Link>
+              </button>
             </>
           ) : (
             <>
-              <button>
-                <Link href="/login">Login</Link>/
-                <Link href="/register">Registro</Link>
+              {filtro.length > 0 && token && (
+                <button key="dashboard" id="dashboard">
+                  <Link href="/dashboard">Panel</Link>
+                </button>
+              )}
+              <button key="logout" onClick={handleLogout}>
+                Logout
               </button>
             </>
           )}
@@ -61,3 +55,5 @@ export default function NavBar() {
     </nav>
   );
 }
+
+

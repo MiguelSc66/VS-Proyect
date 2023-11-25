@@ -5,9 +5,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 export default function ButtonAuth() {
   const { data: session, status, error } = useSession();
 
-  console.log(session)
-  console.log(status)
-  console.log(error)
+  
 
 
   if (status === "loading") {
