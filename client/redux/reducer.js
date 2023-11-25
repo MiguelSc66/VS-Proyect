@@ -14,7 +14,7 @@ const initialState = {
   drinks: [],
   users: [],
   cartItems: [],
-  authenticated: false,
+  isAuthenticated: false,
   error: null,
   token:
     typeof window !== "undefined"

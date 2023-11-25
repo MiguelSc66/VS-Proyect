@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser, getAllAdmins } from "@/redux/actions";
 
@@ -12,16 +12,25 @@ export default function NavBar() {
   const filtro = admin.filter((us) => {
     return email === us.email;
   });
+  const [loading, setLoading] = useState(true); // Nuevo estado para manejar la carga de datos
 
   useEffect(() => {
-    dispatch(getAllAdmins());
+    const fetchData = async () => {
+      try {
+        await dispatch(getAllAdmins());
+        setLoading(false);
+      } catch (error) {
+        console.error("Error al obtener admins", error);
+      }
+    };
+
+    fetchData();
   }, [dispatch]);
 
   const handleLogout = () => {
     dispatch(logoutUser());
   };
 
-  
   return (
     <nav className="w-full mt-0 h-32 bg-black bg-opacity-50">
       <div className="flex justify-center items-center h-full">
@@ -31,29 +40,26 @@ export default function NavBar() {
           </button>
           {!token ? (
             <>
-              <button key="login">
+              <button>
                 <Link href="/login">Login</Link>
               </button>
-              <button key="register">
+              <button>
                 <Link href="/register">Registro</Link>
               </button>
             </>
-          ) : (
+          ) : null}
+          {filtro.length > 0 && token ? (
+            <button id="dashboard" suppressHydrationWarning>
+              <Link href="/dashboard">Panel</Link>
+            </button>
+          ) : null}
+          {token ? (
             <>
-              {filtro.length > 0 && token && (
-                <button key="dashboard" id="dashboard">
-                  <Link href="/dashboard">Panel</Link>
-                </button>
-              )}
-              <button key="logout" onClick={handleLogout}>
-                Logout
-              </button>
+              <button onClick={handleLogout}>Logout</button>
             </>
-          )}
+          ) : null}
         </div>
       </div>
     </nav>
   );
 }
-
-
