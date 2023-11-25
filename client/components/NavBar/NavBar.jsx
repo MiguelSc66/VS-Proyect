@@ -1,8 +1,9 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser, getAllAdmins } from "@/redux/actions";
+
 
 export default function NavBar() {
   const dispatch = useDispatch();
@@ -12,15 +13,16 @@ export default function NavBar() {
   const filtro = admin.filter((us) => {
     return email === us.email;
   });
-  let panel = null; // Declarar la variable panel aquí
 
   useEffect(() => {
-    if (filtro.length > 0 && token) {
-      panel = document.getElementById("dashboard"); // Asignar valor a panel
-    } else if (!token) {
-      return
+    if (typeof window !== "undefined") {
+      // Código que interactúa con el DOM aquí
+      const panel = document.getElementById("dashboard");
+      if (filtro.length > 0 && token && panel) {
+        // Hacer algo con el panel
+      }
     }
-  }, [filtro]);
+  }, [filtro, token]);
 
   useEffect(() => {
     dispatch(getAllAdmins());
@@ -37,21 +39,21 @@ export default function NavBar() {
           <button>
             <Link href="/">Home</Link>
           </button>
-          {!token ? (
+          {token ? (
             <>
-              <button>
-                <Link href="/login">Login</Link>
-                /<Link href="/register">Registro</Link>
-              </button>
-            </>
-          ) : (
-            <>
-              {filtro.length > 0 ? (
+              {filtro.length > 0 && token && (
                 <button id="dashboard">
                   <Link href="/dashboard">Panel</Link>
                 </button>
-              ) : null}
+              )}
               <button onClick={handleLogout}>Logout</button>
+            </>
+          ) : (
+            <>
+              <button>
+                <Link href="/login">Login</Link>/
+                <Link href="/register">Registro</Link>
+              </button>
             </>
           )}
         </div>

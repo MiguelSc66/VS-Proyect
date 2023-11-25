@@ -4,7 +4,6 @@ import "./styles/globals.css"
 import {metadata} from "./meta/metadata"
 import { Provider } from "react-redux"
 import store from "@/redux/store"
-import { SessionProvider } from "next-auth/react"
 import SessionAuthProvider from "@/context/SessionAuthProvider"
 
 export default function RootLayout({ children, hideNavBar, pageProps  }) {

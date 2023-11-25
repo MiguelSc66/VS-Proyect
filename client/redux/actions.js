@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { signIn } from "next-auth/react";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const GET_ALL_ADMINS = "GET_ALL_ADMINS";
 export const GET_ALL_DRINKS = "GET_ALL_DRINKS";
@@ -74,7 +74,7 @@ export const loginUser = (loginData) => async (dispatch) => {
             payload : data,
         });
 
-        await signIn('credentials', { loginData})
+        await signIn('credentials',  loginData)
     } catch (err) {
         console.error(err);
         dispatch({
