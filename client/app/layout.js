@@ -1,12 +1,16 @@
 "use client"
-import NavBar from "@/components/NavBar/NavBar"
 import "./styles/globals.css"
 import {metadata} from "./meta/metadata"
 import { Provider } from "react-redux"
 import store from "@/redux/store"
 import SessionAuthProvider from "@/context/SessionAuthProvider"
+import dynamic from 'next/dynamic';
 
-export default function RootLayout({ children, hideNavBar, pageProps  }) {
+const MyComponent = dynamic(() => import('@/components/NavBar/NavBar'), {
+  ssr: false
+});
+
+export default function RootLayout({ children, hideNavBar  }) {
 
   return (
     <html lang="en">
@@ -17,9 +21,9 @@ export default function RootLayout({ children, hideNavBar, pageProps  }) {
       <body className="cabecera  pt-safe-top text-white">
         <SessionAuthProvider>
             <Provider store={store}>
-              {!hideNavBar && (
-                <NavBar />
-              )}
+              
+                <MyComponent />
+              
               {children}
             </Provider>
         </SessionAuthProvider>

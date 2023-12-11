@@ -1,5 +1,5 @@
 import axios from "axios";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const GET_ALL_ADMINS = "GET_ALL_ADMINS";
 export const GET_ALL_DRINKS = "GET_ALL_DRINKS";
@@ -87,6 +87,8 @@ export const loginUser = (loginData) => async (dispatch) => {
 export const logoutUser = () => async (dispatch) => {
     // Eliminar el token de autenticación del almacenamiento local (o donde lo tengas almacenado)
     localStorage.removeItem("token");
+
+    await signOut()
     
     // Despachar la acción de cierre de sesión
     dispatch({ type: LOGOUT });
