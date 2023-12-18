@@ -1,178 +1,216 @@
 "use client"
-import { useForm, Controller } from 'react-hook-form';
-import { TextField, Button, Grid, Typography, Container } from '@mui/material';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createUser } from '@/redux/actions';
+import validate from '@/app/register/validate';
+import { useRouter } from 'next/router';
+
+
+
+
 
 export default function RegistrationForm() {
-  const { control, handleSubmit, reset, formState: { errors } } = useForm();
+  const router = useRouter();
   const dispatch = useDispatch();
+ 
+  const [formData, setFormData] = useState({
+    name: '',
+    age: '',
+    dni: '',
+    email: '',
+    password: '',
+    pais: '',
+    ciudad: '',
+    phoneNumber: '',
+  });
+  const [errors, setErrors] = useState({});
 
-  const onSubmit = async (data) => {
-    await dispatch(createUser(data));
-    reset();
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+    const validateError = validate({ ...formData, [e.target.name]: e.target.value });
+    setErrors(validateError);
+  };
+
+  const clearForm = () => {
+    setFormData({
+      name: '',
+      age: '',
+      dni: '',
+      email: '',
+      password: '',
+      pais: '',
+      ciudad: '',
+      phoneNumber: '',
+    });
+    setErrors({});
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    const validationErrors = validate(formData);
+
+    if (Object.keys(validationErrors).length === 0) {
+      await dispatch(createUser(formData));
+      clearForm();
+      router.push('/')
+    } else {
+      setErrors(validationErrors);
+    }
   };
 
   return (
-    <Container >
-      <Typography variant="h4" component="h2" className="flex justify-center items-center mt-20">
-        Registrarse
-      </Typography>
-      <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-400 mt-8 rounded-lg">
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <Controller
-              name="name"
-              control={control}
-              defaultValue=""
-              rules={{ required: 'Campo requerido' }}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Nombre Completo"
-                  fullWidth
-                  error={Boolean(errors.name)}
-                  helperText={errors.name?.message}
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Controller
-              name="age"
-              control={control}
-              defaultValue=""
-              rules={{ required: 'Campo requerido', min: 18 }}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Edad"
-                  fullWidth
-                  error={Boolean(errors.age)}
-                  helperText={errors.age?.message}
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Controller
-              name="dni"
-              control={control}
-              defaultValue=""
-              rules={{
-                required: 'Campo requerido',
-                pattern: {
-                  value: /^[0-9]{8}$/,
-                  message: 'DNI debe contener 8 números',
-                },
-              }}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="DNI"
-                  fullWidth
-                  error={Boolean(errors.dni)}
-                  helperText={errors.dni?.message}
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Controller
-              name="email"
-              control={control}
-              defaultValue=""
-              rules={{
-                required: 'Campo requerido',
-                pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                  message: 'Email no válido',
-                },
-              }}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Email"
-                  fullWidth
-                  error={Boolean(errors.email)}
-                  helperText={errors.email?.message}
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Controller
-              name="password"
-              control={control}
-              defaultValue=""
-              rules={{
-                required: 'Campo requerido',
-                minLength: {
-                  value: 8,
-                  message: 'La contraseña debe tener al menos 8 caracteres',
-                },
-              }}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Contraseña"
-                  type="password"
-                  fullWidth
-                  error={Boolean(errors.password)}
-                  helperText={errors.password?.message}
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Controller
-              name="phoneNumber"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Teléfono"
-                  fullWidth
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Controller
-              name="city"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Ciudad"
-                  fullWidth
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Controller
-              name="country"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="País"
-                  fullWidth
-                />
-              )}
-            />
-          </Grid>
-        </Grid>
-        <div className="flex justify-center mt-4">
-          <Button type="submit" variant="contained" color="primary" className=' shadow-md shadow-black mb-3'>
-            Registrar
-          </Button>
-        </div>
-      </form>
-    </Container>
+    <form className="max-w-md mx-auto mt-8 p-4 bg-white shadow-md rounded-md" onSubmit={onSubmit}>
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+          Nombre Completo
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          className="w-full px-3 py-2 border rounded-md text-black shadow-md "
+          placeholder="Nombre Completo"
+          onChange={handleChange}
+          required
+        />
+        {errors.name && (
+          <p className="text-red-500 text-sm italic mt-1">{errors.name}</p>
+        )}
+      </div>
+
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="age">
+          Edad
+        </label>
+        <input
+          type="number"
+          id="age"
+          name="age"
+          min="18"
+          placeholder='Ingrese su edad'
+          className="w-full px-3 py-2 border rounded-md text-black shadow-md"
+          onChange={handleChange}
+          required
+        />
+        {errors.age && (
+          <p className="text-red-500 text-sm italic mt-1">{errors.age}</p>
+        )}
+      </div>
+
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="dni">
+          DNI
+        </label>
+        <input
+          type="text"
+          id="dni"
+          name="dni"
+          placeholder='Ingrese su DNI'
+          className="w-full px-3 py-2 border rounded-md text-black shadow-md"
+          onChange={handleChange}
+          required
+        />
+        {errors.dni && (
+          <p className="text-red-500 text-sm italic mt-1">{errors.dni}</p>
+        )}
+      </div>
+
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+          Correo Electrónico
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder='Ingrese su correo electrónico'
+          className="w-full px-3 py-2 border rounded-md text-black shadow-md"
+          onChange={handleChange}
+          required
+        />
+        {errors.email && (
+          <p className="text-red-500 text-sm italic mt-1">{errors.email}</p>
+        )}
+      </div>
+
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+          Contraseña
+        </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Ingrese su contraseña"
+          className="w-full px-3 py-2 border rounded-md text-black shadow-md"
+          onChange={handleChange}
+          required
+        />
+        {errors.password && (
+          <p className="text-red-500 text-sm italic mt-1">{errors.password}</p>
+        )}
+      </div>
+
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="country">
+          País
+        </label>
+        <input
+          type="text"
+          id="country"
+          name="country"
+          placeholder='Ingrese su pais'
+          className="w-full px-3 py-2 border rounded-md text-black shadow-md"
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="city">
+          Ciudad
+        </label>
+        <input
+          type="text"
+          id="city"
+          name="city"
+          placeholder='Ingrese su ciudad'
+          className="w-full px-3 py-2 border rounded-md text-black shadow-md"
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phoneNumber">
+          Número de Teléfono
+        </label>
+        <input
+          type="tel"
+          id="phoneNumber"
+          name="phoneNumber"
+          placeholder='Ingrese su numero de telefono'
+          className="w-full px-3 py-2 border rounded-md text-black shadow-md"
+          onChange={handleChange}
+          required
+        />
+        {errors.phoneNumber && (
+          <p className="text-red-500 text-sm italic mt-1">{errors.phoneNumber}</p>
+        )}
+      </div>
+
+      <div className="mb-4">
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+        >
+          Registrarse
+        </button>
+      </div>
+    </form>
   );
-}
+};
