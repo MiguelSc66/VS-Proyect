@@ -1,16 +1,10 @@
 "use client"
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createUser } from '@/redux/actions';
 import validate from '@/app/register/validate';
-import { useRouter } from 'next/router';
-
-
-
-
 
 export default function RegistrationForm() {
-  const router = useRouter();
   const dispatch = useDispatch();
  
   const [formData, setFormData] = useState({
@@ -56,7 +50,6 @@ export default function RegistrationForm() {
     if (Object.keys(validationErrors).length === 0) {
       await dispatch(createUser(formData));
       clearForm();
-      router.push('/')
     } else {
       setErrors(validationErrors);
     }

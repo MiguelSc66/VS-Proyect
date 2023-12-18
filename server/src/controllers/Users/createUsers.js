@@ -68,8 +68,14 @@ const loginUser = async (req, res) => {
       expiresIn: "1h", // Cambia esto según tus preferencias
     });
     
+    const responseData = {
+      message:"Inicio de sesión exitoso",
+      token: token,
+      email,
+      admin: user.Admin,
+    }
 
-    res.status(200).json({ message: "Inicio de sesión exitoso", token, email });
+    res.status(200).json(responseData);
   } catch (error) {
     console.error("Error al iniciar sesión:", error);
     res.status(500).json({ message: "Error interno del servidor" });
