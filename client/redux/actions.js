@@ -86,13 +86,10 @@ export const loginUser = (loginData) => async (dispatch) => {
 }
 
 export const logoutUser = () => async (dispatch) => {
-    // Eliminar el token de autenticación del almacenamiento local (o donde lo tengas almacenado)
+    // Eliminar el token de autenticación del almacenamiento local
     localStorage.removeItem("token");
 
     await signOut()
-    
     // Despachar la acción de cierre de sesión
     dispatch({ type: LOGOUT });
-
-    
 };

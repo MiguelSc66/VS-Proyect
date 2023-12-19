@@ -1,14 +1,13 @@
 "use client"
-import { Container, TextField, Typography, Button } from "@mui/material";
-import { useForm, Controller } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser, getAllAdmins, getAllUsers } from "@/redux/actions";
 
-
 export default function LoginForm() {
-  const [token, setToken] = useState('');
-  const [authy, setAuthy] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
   const dispatch = useDispatch();
   const authe = useSelector((state) => state.token);
 
@@ -17,80 +16,67 @@ export default function LoginForm() {
     dispatch(getAllUsers());
   }, [dispatch]);
 
-  const { handleSubmit, reset, control, formState: { errors } } = useForm();
-
-  const onSubmit = (data) => {
-    dispatch(loginUser(data));
-    reset();
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    // Dispatch de la acción de inicio de sesión
+    await dispatch(loginUser(formData));
+
+    // Limpieza del formulario
+    setFormData({
+      email: "",
+      password: "",
+    });
+  };
 
   return (
-    <Container className="p-8 lg:mt-32 md:mt-32 sm:mt-32 mt-20 ">
-      <Typography variant="h4" component="h2" className="text-center ">
-        Iniciar Sesión
-      </Typography>
-      <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-400 mt-4 rounded-lg p-4">
-        <Controller
-          name="email"
-          control={control}
-          defaultValue=""
-          rules={{
-            required: 'Campo requerido',
-            pattern: {
-              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-              message: 'Correo electrónico no válido',
-            },
-          }}
-          render={({ field }) => (
-            <TextField
-              type="text"
-              label="Correo Electrónico"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-              {...field}
-            />
-          )}
-        />
-        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
-
-        <Controller
-          name="password"
-          control={control}
-          defaultValue=""
-          rules={{
-            required: 'Campo requerido',
-            minLength: {
-              value: 8,
-              message: 'La contraseña debe tener al menos 8 caracteres',
-            },
-          }}
-          render={({ field }) => (
-            <TextField
-              type="password"
-              label="Contraseña"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-              {...field}
-            />
-          )}
-        />
-        {errors.password && <p className="text-red-500">{errors.password.message}</p>}
-
-        <Button
+    <div className="container mx-auto mt-20 p-8 lg:mt-32 md:mt-32 sm:mt-32">
+      <h2 className="text-3xl font-bold text-center mb-8">Iniciar Sesión</h2>
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-md mx-auto bg-gray-300 rounded-lg overflow-hidden shadow-md p-8"
+      >
+        <div className="mb-4">
+          <label htmlFor="email" className="block text-sm font-bold mb-2 text-black">
+            Correo Electrónico
+          </label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          />
+        </div>
+        <div className="mb-6">
+          <label htmlFor="password" className="block text-sm font-bold mb-2 text-black">
+            Contraseña
+          </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          />
+        </div>
+        <button
           type="submit"
-          variant="contained"
-          color="primary"
-          fullWidth
-          className="mt-4 sm:mt-20"
+          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
         >
           Iniciar Sesión
-        </Button>
+        </button>
       </form>
-    </Container>
+    </div>
   );
 }
 
