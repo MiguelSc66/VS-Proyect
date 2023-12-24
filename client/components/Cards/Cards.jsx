@@ -1,6 +1,9 @@
 "use client";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Cards({ drinks }) {
+  const dispatch = useDispatch();
   
 
   return (

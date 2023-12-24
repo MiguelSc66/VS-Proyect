@@ -6,6 +6,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   LOGOUT,
+  ADD_TO_CART
 } from "./actions";
 
 const initialState = {
@@ -60,6 +61,35 @@ const reducer = (state = initialState, action) => {
         isAuthenticated: false,
         token: null, // Borrar el token cuando se cierre sesión
         error: null, // Restablecer cualquier mensaje de error anterior
+      };
+
+    case ADD_TO_CART: 
+    const addItem = state.drinks.find(
+      (drink) => drink.id === action.payload.id
+      );
+      if (!addItem) {
+        return state
+      };
+
+      const upgradeDrink = state.drinks.map((drink) => {
+        if (drink.id === action.payload.id) {
+          return {
+            ...drink,
+            stock: drink.stock -1
+          };
+        }
+        return drink
+      });
+
+      localStorage.setItem(
+        "cart",
+        JSON.stringify([...state.cartItems, action.payload])
+      );
+
+      return {
+        ...state,
+        drinks: upgradeDrink,
+        cartItems: [...state.cartItems, action.payload]
       };
 
     default:

@@ -6,9 +6,10 @@ export const GET_ALL_DRINKS = "GET_ALL_DRINKS";
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
-export const LOGOUT = "LOGOUT"
+export const LOGOUT = "LOGOUT";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
-export const CREATE_NEW_USER = "CREATE_NEW_USER"
+export const CREATE_NEW_USER = "CREATE_NEW_USER";
+export const ADD_TO_CART = "ADD_TO_CART";
 
 
 
@@ -93,3 +94,8 @@ export const logoutUser = () => async (dispatch) => {
     // Despachar la acción de cierre de sesión
     dispatch({ type: LOGOUT });
 };
+
+export const addToCart = (drink) => ({
+    type: ADD_TO_CART,
+    payload: drink,
+  });
