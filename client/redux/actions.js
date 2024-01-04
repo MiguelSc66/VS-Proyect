@@ -81,7 +81,7 @@ export const loginUser = (loginData) => async (dispatch) => {
         console.error(err);
         dispatch({
             type: LOGIN_FAILURE,
-            payload: err.message, // Ajusta esto según cómo manejes los errores en tu aplicación
+            payload: err.message, 
         });
     }
 }

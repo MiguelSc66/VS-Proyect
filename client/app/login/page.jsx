@@ -43,8 +43,8 @@ export default function LoginForm() {
         onSubmit={handleSubmit}
         className="max-w-md mx-auto bg-gray-300 rounded-lg overflow-hidden shadow-md p-8"
       >
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-bold mb-2 text-black">
+        <div className="mb-4 text-black">
+          <label htmlFor="email" className="block text-sm font-bold mb-2">
             Correo Electrónico
           </label>
           <input
@@ -56,8 +56,8 @@ export default function LoginForm() {
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
-        <div className="mb-6">
-          <label htmlFor="password" className="block text-sm font-bold mb-2 text-black">
+        <div className="mb-6 text-black">
+          <label htmlFor="password" className="block text-sm font-bold mb-2">
             Contraseña
           </label>
           <input
@@ -66,7 +66,7 @@ export default function LoginForm() {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full px-3 py-2 border text-black border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full px-3 py-2 border text-blue-600 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
         <button

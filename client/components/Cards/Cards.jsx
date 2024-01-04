@@ -1,10 +1,14 @@
 "use client";
+import { addToCart } from "@/redux/actions";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Cards({ drinks }) {
   const dispatch = useDispatch();
-  
+
+  const handlerAddToCart = (product) => {
+    dispatch(addToCart(product))
+  }
 
   return (
     <div className="sm:w-10/12 md:w-9/12 lg:w-8/12 xl:w-7/12 mx-auto mt-5">
@@ -23,7 +27,7 @@ export default function Cards({ drinks }) {
               <p className="text-green-600 font-semibold text-lg mt-2">${card.price}</p>
             </div>
             <div className="w-full h-10 bg-green-500 flex items-center justify-center">
-              <button>Añadir al carrito</button>
+              <button onClick={() => handlerAddToCart(card)}>Añadir al carrito</button>
             </div>
           </div>
         ))}
