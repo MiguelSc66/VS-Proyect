@@ -1,8 +1,12 @@
 import { RiShoppingCartLine } from "react-icons/ri";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const ShoppingCart = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cartItems); // Obtener cartItems del estado global
+  console.log(cartItems);
 
   const handleToggleCart = () => {
     setIsOpen(!isOpen);
@@ -43,8 +47,9 @@ const ShoppingCart = () => {
           >
             X
           </button>
-          <div className="text-black">Producto 1 - 2 unidades</div>
-          <div className="text-black">Producto 2 - 1 unidad</div>
+          {cartItems.map((item, index) => (
+            <div key={index} className="text-black">{item.name} - {item.stock} unidades</div>
+          ))}
           <div className="text-black">Total: $50</div>
           <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
             Pagar

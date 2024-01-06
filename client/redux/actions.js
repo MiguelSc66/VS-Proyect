@@ -95,7 +95,14 @@ export const logoutUser = () => async (dispatch) => {
     dispatch({ type: LOGOUT });
 };
 
-export const addToCart = (drink) => ({
-    type: ADD_TO_CART,
-    payload: drink,
-  });
+export const addToCart = (drink) => async (dispatch) => {
+    try {
+        console.log(drink)
+        dispatch({type: ADD_TO_CART ,payload: drink})
+    } catch (err) {
+        dispatch({
+            type: CART_ERROR,
+            payload: err.message
+        })
+    }
+}
