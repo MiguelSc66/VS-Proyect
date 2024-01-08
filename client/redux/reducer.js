@@ -7,6 +7,7 @@ import {
   LOGIN_FAILURE,
   LOGOUT,
   ADD_TO_CART,
+  CLEAR_CART
 } from "./actions";
 
 const initialState = {
@@ -14,7 +15,7 @@ const initialState = {
   reviews: [],
   drinks: [],
   users: [],
-  cartItems: [],
+  cartItems: localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [],
   isAuthenticated: false,
   error: null,
   token:
@@ -65,40 +66,45 @@ const reducer = (state = initialState, action) => {
       };
 
     case ADD_TO_CART:
-      const addedItem = state.drinks.find(
-        (drink) => drink.id === action.payload.id
+      const addedItem = state.cartItems.find(
+        (item) => item.id === action.payload.id
       );
-      console.log(addedItem);
-      if (!addedItem || addedItem.stock <= 0) {
-        // Si el artículo no existe o está agotado, no hagas nada
-        return state;
+    
+      if (addedItem) {
+        // Si el artículo ya está en el carrito, incrementa cartQuantity
+        const updatedCartItems = state.cartItems.map((item) =>
+          item.id === addedItem.id
+            ? { ...item, cartQuantity: item.cartQuantity + 1 }
+            : item
+        );
+    
+        return {
+          ...state,
+          cartItems: updatedCartItems,
+        };
+      } else {
+        // Si el artículo no está en el carrito, agrégalo con cartQuantity inicial 1
+        const itemToAdd = {
+          ...action.payload,
+          cartQuantity: 1,
+        };
+    
+        localStorage.setItem(
+          "cart",
+          JSON.stringify([...state.cartItems, itemToAdd])
+        );
+    
+        return {
+          ...state,
+          cartItems: [...state.cartItems, itemToAdd],
+        };
       }
 
-      const updatedDrinks = state.drinks.map((drink) => {
-        if (drink.id === action.payload.id) {
-          return {
-            ...drink,
-            stock: drink.stock - 1,
-          };
-        }
-        return drink;
-      });
-
-      const itemToAdd = {
-        ...action.payload,
-        cartQuantity: 1,
-      };
-
-      localStorage.setItem(
-        "cart",
-        JSON.stringify([...state.cartItems, action.payload])
-      );
-      console.log(updatedDrinks)
-        
+      case CLEAR_CART:
+      localStorage.removeItem("cart");
       return {
         ...state,
-        drinks: updatedDrinks,
-        cartItems: [...state.cartItems, itemToAdd],
+        cartItems: [],
       };
 
     default:

@@ -10,7 +10,7 @@ export const LOGOUT = "LOGOUT";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const CREATE_NEW_USER = "CREATE_NEW_USER";
 export const ADD_TO_CART = "ADD_TO_CART";
-
+export const CLEAR_CART = "CLEAR_CART"
 
 
 
@@ -106,3 +106,7 @@ export const addToCart = (drink) => async (dispatch) => {
         })
     }
 }
+
+export const clearCart = () => ({
+    type: CLEAR_CART
+})

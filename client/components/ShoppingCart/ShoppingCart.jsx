@@ -1,6 +1,7 @@
 import { RiShoppingCartLine } from "react-icons/ri";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { clearCart } from "@/redux/actions";
 
 const ShoppingCart = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +21,10 @@ const ShoppingCart = () => {
     (total, item) => total + item.price * item.cartQuantity,
     0
   );
+
+  const handlerClear = () => {
+    dispatch(clearCart())
+  }
 
   const cartStyles = {
     position: "fixed",
@@ -60,6 +65,7 @@ const ShoppingCart = () => {
             Pagar
           </button>
         </div>
+          <button onClick={handlerClear} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" >borrar</button>
       </div>
     </div>
   );

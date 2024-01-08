@@ -6,19 +6,24 @@ import { useDispatch, useSelector } from "react-redux";
 export default function Cards({ drinks }) {
   const [buttomDiseabled, setButtomDiseable] = useState(false);
   const dispatch = useDispatch();
-  const Authenticate = useSelector((state) => state.token !== null);
+  const isAuthenticate = useSelector((state) => state.token !== null);
   const cartItems = useSelector((state) => state.cartItems);
+  console.log(isAuthenticate);
+  const ItemCart = cartItems.find((item) => item.id === drinks.id);
 
-  const ItemCart = cartItems.find((item) => item.id === drinks.id)
+  console.log(buttomDiseabled);
 
-  const handlerAddToCart = (product) => {
-    dispatch(addToCart(product))
-  }
-  
   useEffect(() => {
-    setButtomDiseable(!!ItemCart)
-  })
+    const isItemInCart = cartItems.some((item) => item.id === drinks.id);
+    setButtomDiseable(isAuthenticate && isItemInCart);
+  }, [cartItems, drinks.id, isAuthenticate]);
 
+  const handleAddToCart = (drink) => {
+    if (isAuthenticate && !buttomDiseabled) {
+      dispatch(addToCart(drink));
+      setButtomDiseable(true);
+    }
+  };
   return (
     <div className="sm:w-10/12 md:w-9/12 lg:w-8/12 xl:w-7/12 mx-auto mt-5">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -28,15 +33,33 @@ export default function Cards({ drinks }) {
             className="bg-white rounded-lg shadow-lg overflow-hidden"
           >
             <div className="h-60 bg-cover bg-center flex items-center justify-center bg-slate-400">
-              <img src={card.image} alt={card.name} className="w-22 h-[25vh] flex " />
+              <img
+                src={card.image}
+                alt={card.name}
+                className="w-22 h-[25vh] flex "
+              />
             </div>
             <div className="p-4">
               <h2 className="text-xl font-bold mb-2 text-black">{card.name}</h2>
               <p className="text-gray-500 text-sm">Stock: {card.stock}</p>
-              <p className="text-green-600 font-semibold text-lg mt-2">${card.price}</p>
+              <p className="text-green-600 font-semibold text-lg mt-2">
+                ${card.price}
+              </p>
             </div>
             <div className="w-full h-10 bg-green-500 flex items-center justify-center">
-              <button onClick={() => handlerAddToCart(card)} disabled={card.cartQuantity !== undefined}>Añadir al carrito</button>
+              <button
+                onClick={() => handleAddToCart(card)}
+                disabled={
+                  (isAuthenticate &&
+                    cartItems.some((item) => item.id === card.id)) ||
+                  card.stock === 0
+                }
+              >
+                {isAuthenticate &&
+                cartItems.some((item) => item.id === card.id)
+                  ? "Añadido al carrito"
+                  : "Añadir al carrito"}
+              </button>
             </div>
           </div>
         ))}
