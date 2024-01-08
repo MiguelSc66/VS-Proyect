@@ -7,7 +7,7 @@ const ShoppingCart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cartItems); // Obtener cartItems del estado global
   console.log(cartItems);
-
+  
   const handleToggleCart = () => {
     setIsOpen(!isOpen);
   };
@@ -15,6 +15,11 @@ const ShoppingCart = () => {
   const handleCloseCart = () => {
     setIsOpen(false);
   };
+
+  const totalValue = cartItems.reduce(
+    (total, item) => total + item.price * item.cartQuantity,
+    0
+  );
 
   const cartStyles = {
     position: "fixed",
@@ -50,7 +55,7 @@ const ShoppingCart = () => {
           {cartItems.map((item, index) => (
             <div key={index} className="text-black">{item.name} - {item.stock} unidades</div>
           ))}
-          <div className="text-black">Total: $50</div>
+          <div className="text-black">Total: ${totalValue}</div>
           <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
             Pagar
           </button>

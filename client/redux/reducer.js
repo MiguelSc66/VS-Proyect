@@ -84,6 +84,11 @@ const reducer = (state = initialState, action) => {
         return drink;
       });
 
+      const itemToAdd = {
+        ...action.payload,
+        cartQuantity: 1,
+      };
+
       localStorage.setItem(
         "cart",
         JSON.stringify([...state.cartItems, action.payload])
@@ -93,7 +98,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         drinks: updatedDrinks,
-        cartItems: [...state.cartItems, action.payload],
+        cartItems: [...state.cartItems, itemToAdd],
       };
 
     default:

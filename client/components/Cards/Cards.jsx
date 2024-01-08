@@ -4,11 +4,20 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Cards({ drinks }) {
+  const [buttomDiseabled, setButtomDiseable] = useState(false);
   const dispatch = useDispatch();
+  const Authenticate = useSelector((state) => state.token !== null);
+  const cartItems = useSelector((state) => state.cartItems);
+
+  const ItemCart = cartItems.find((item) => item.id === drinks.id)
 
   const handlerAddToCart = (product) => {
     dispatch(addToCart(product))
   }
+  
+  useEffect(() => {
+    setButtomDiseable(!!ItemCart)
+  })
 
   return (
     <div className="sm:w-10/12 md:w-9/12 lg:w-8/12 xl:w-7/12 mx-auto mt-5">
@@ -27,7 +36,7 @@ export default function Cards({ drinks }) {
               <p className="text-green-600 font-semibold text-lg mt-2">${card.price}</p>
             </div>
             <div className="w-full h-10 bg-green-500 flex items-center justify-center">
-              <button onClick={() => handlerAddToCart(card)}>Añadir al carrito</button>
+              <button onClick={() => handlerAddToCart(card)} disabled={card.cartQuantity !== undefined}>Añadir al carrito</button>
             </div>
           </div>
         ))}
