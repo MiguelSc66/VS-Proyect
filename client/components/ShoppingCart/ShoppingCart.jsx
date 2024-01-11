@@ -8,7 +8,7 @@ const ShoppingCart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cartItems); // Obtener cartItems del estado global
   console.log(cartItems);
-  
+
   const handleToggleCart = () => {
     setIsOpen(!isOpen);
   };
@@ -23,8 +23,8 @@ const ShoppingCart = () => {
   );
 
   const handlerClear = () => {
-    dispatch(clearCart())
-  }
+    dispatch(clearCart());
+  };
 
   const cartStyles = {
     position: "fixed",
@@ -58,14 +58,43 @@ const ShoppingCart = () => {
             X
           </button>
           {cartItems.map((item, index) => (
-            <div key={index} className="text-black">{item.name} - {item.stock} unidades</div>
+            <div
+              key={index}
+              className="flex items-center mt-4 shadow-md bg-gray-400 p-2 rounded-md"
+            >
+              <img
+                src={item.image}
+                alt={item.name}
+                className="h-20 mr-4 rounded-md"
+              />
+              <div className="flex flex-col">
+                <span className="text-black bg-slate-300 p-2 mb-2 rounded-md">
+                  {item.name}
+                </span>
+                <div className="flex items-center">
+                  <button className="bg-green-600 w-20 h-6 rounded-md mr-2">
+                    Aumentar
+                  </button>
+                  <button className="bg-red-400 w-14 h-6 rounded-md">
+                    Quitar
+                  </button>
+                </div>
+              </div>
+            </div>
           ))}
-          <div className="text-black">Total: ${totalValue}</div>
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-            Pagar
-          </button>
+          <div className="text-black mt-4">Total: ${totalValue}</div>
+          <div className="flex justify-between">
+            <button className="bg-blue-500 text-white px-5 py-2 rounded-md hover:bg-blue-600 mt-2">
+              Pagar
+            </button>
+            <button
+              onClick={handlerClear}
+              className="bg-red-500 text-white px-5 py-2 rounded-md hover:bg-red-600 mt-2"
+            >
+              borrar
+            </button>
+          </div>
         </div>
-          <button onClick={handlerClear} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" >borrar</button>
       </div>
     </div>
   );
