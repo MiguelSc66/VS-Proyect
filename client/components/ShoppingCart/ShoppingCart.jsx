@@ -32,12 +32,12 @@ const ShoppingCart = () => {
     right: "0",
     height: "100%",
     width: "64px",
-    backgroundColor: "white",
+    backgroundColor: "#f2f2f2",
     borderLeft: "1px solid #ccc",
     boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
     transition: "width 0.5s ease-out",
     overflowX: "hidden",
-    width: isOpen ? "250px" : "0px",
+    width: isOpen ? "300px" : "0px",
     zIndex: 999, // Ajusta el valor según sea necesario
   };
 

@@ -25,12 +25,12 @@ export default function Cards({ drinks }) {
     }
   };
   return (
-    <div className="sm:w-10/12 md:w-9/12 lg:w-8/12 xl:w-7/12 mx-auto mt-5">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="sm:w-11/12 md:w-9/12 lg:w-8/12 xl:w-7/12 mx-auto mt-5">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {drinks.map((card, index) => (
           <div
             key={index}
-            className="bg-white rounded-lg shadow-lg overflow-hidden"
+            className="bg-white rounded-lg shadow-lg overflow-hidden w-[90%] mx-auto"
           >
             <div className="h-60 bg-cover bg-center flex items-center justify-center bg-slate-400">
               <img

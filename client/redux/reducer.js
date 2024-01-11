@@ -15,7 +15,8 @@ const initialState = {
   reviews: [],
   drinks: [],
   users: [],
-  cartItems: localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [],
+  cartItems: typeof window !== 'undefined' && localStorage.getItem("cart")
+  ? JSON.parse(localStorage.getItem("cart")) : [],
   isAuthenticated: false,
   error: null,
   token:
