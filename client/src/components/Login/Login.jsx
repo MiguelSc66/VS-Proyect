@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, getAllAdmins, getAllUsers } from "../../redux/actions";
-
+import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 export default function LoginForm() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const dispatch = useDispatch();
   const authe = useSelector((state) => state.token);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getAllAdmins());
@@ -28,6 +30,17 @@ export default function LoginForm() {
     // Dispatch de la acción de inicio de sesión
     await dispatch(loginUser(formData));
 
+    if (!authe && authe !== null) {
+      // Mostrar mensaje de error solo si authe es false y no nulo (primera vez)
+      toast.error("Error al iniciar sesión", { duration: 2500 });
+    } else {
+      // Mostrar mensaje de éxito solo si authe es verdadero
+      toast.success("Inicio de sesión exitoso", { duration: 1500 });
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    }
+
     // Limpieza del formulario
     setFormData({
       email: "",
@@ -37,7 +50,7 @@ export default function LoginForm() {
 
   return (
     <div className="container mx-auto mt-20 p-8 lg:mt-32 md:mt-32 sm:mt-32">
-      <h2 className="text-3xl font-bold text-center mb-8">Iniciar Sesión</h2>
+      <h2 className="text-3xl font-bold text-center mb-8 text-white">Iniciar Sesión</h2>
       <form
         onSubmit={handleSubmit}
         className="max-w-md mx-auto bg-gray-300 rounded-lg overflow-hidden shadow-md p-8"
@@ -75,6 +88,7 @@ export default function LoginForm() {
           Iniciar Sesión
         </button>
       </form>
+      <Toaster position="top-center" reverseOrder={false}/>
     </div>
   );
 }

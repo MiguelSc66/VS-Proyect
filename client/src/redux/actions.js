@@ -98,10 +98,10 @@ export const addToCart = (drink) => async (dispatch) => {
         console.log(drink)
         dispatch({type: ADD_TO_CART ,payload: drink})
     } catch (err) {
-        dispatch({
-            type: CART_ERROR,
-            payload: err.message
-        })
+        // dispatch({
+        //     type: CART_ERROR,
+        //     payload: err.message
+        // })
     }
 }
 

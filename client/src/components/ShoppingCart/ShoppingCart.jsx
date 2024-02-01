@@ -31,7 +31,6 @@ const ShoppingCart = () => {
     top: "0",
     right: "0",
     height: "100%",
-    width: "64px",
     backgroundColor: "#f2f2f2",
     borderLeft: "1px solid #ccc",
     boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",

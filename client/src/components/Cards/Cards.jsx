@@ -3,32 +3,32 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Cards({ drinks }) {
-  const [buttomDiseabled, setButtomDiseable] = useState(false);
+  const [buttonDiseabled, setButtonDiseable] = useState(false);
   const dispatch = useDispatch();
   const isAuthenticate = useSelector((state) => state.token !== null);
   const cartItems = useSelector((state) => state.cartItems);
   console.log(isAuthenticate);
-  const ItemCart = cartItems.find((item) => item.id === drinks.id);
+  // const ItemCart = cartItems.find((item) => item.id === drinks.id);
 
-  console.log(buttomDiseabled);
+  console.log(buttonDiseabled);
 
   useEffect(() => {
     const isItemInCart = cartItems.some((item) => item.id === drinks.id);
-    setButtomDiseable(isAuthenticate && isItemInCart);
+    setButtonDiseable(isAuthenticate && isItemInCart);
   }, [cartItems, drinks.id, isAuthenticate]);
 
   const handleAddToCart = (drink) => {
-    if (isAuthenticate && !buttomDiseabled) {
+    if (isAuthenticate && !buttonDiseabled) {
       dispatch(addToCart(drink));
-      setButtomDiseable(true);
+      setButtonDiseable(true);
     }
   };
   return (
     <div className="sm:w-11/12 md:w-9/12 lg:w-8/12 xl:w-7/12 mx-auto mt-5">
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {drinks.map((card, index) => (
+        {drinks.map((card) => (
           <div
-            key={index}
+            key={card.id}
             className="bg-white rounded-lg shadow-lg overflow-hidden w-[90%] mx-auto"
           >
             <div className="h-60 bg-cover bg-center flex items-center justify-center bg-slate-400">
