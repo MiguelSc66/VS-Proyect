@@ -1,0 +1,24 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+body {
+  padding-top: env(safe-area-inset-top); 
+  background: linear-gradient(
+    to right,
+    rgb(24, 24, 24), 
+    rgb(32, 32, 32)  
+  );
+  background-color: black;
+}
+* {
+  font-family: 'Inter', sans-serif;
+}
+header {
+  padding-top: env(safe-area-inset-top); 
+  background: linear-gradient(
+    to right,
+    rgb(24, 24, 24), 
+    rgb(32, 32, 32)  
+  ); 
+}
