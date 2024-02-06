@@ -7,7 +7,7 @@ import { getAllDrinks } from "../../redux/actions";
 export default function Home() {
   const [pageSize, setPageSize] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
-
+  console.log(setPageSize)
   const dispatch = useDispatch();
   const drinks = useSelector((state) => state.drinks);
 

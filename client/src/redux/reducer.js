@@ -7,7 +7,9 @@ import {
   LOGIN_FAILURE,
   LOGOUT,
   ADD_TO_CART,
-  CLEAR_CART
+  CLEAR_CART,
+  INCREASE_ITEM,
+  DECREASE_ITEM,
 } from "./actions";
 
 const initialState = {
@@ -89,6 +91,8 @@ const reducer = (state = initialState, action) => {
           ...action.payload,
           cartQuantity: 1,
         };
+
+        itemToAdd.stock -= 1
     
         localStorage.setItem(
           "cart",
@@ -106,6 +110,40 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         cartItems: [],
+      };
+
+      case INCREASE_ITEM:
+        const incCartItems = state.cartItems.map((item) => {
+          if (item.id === action.payload.id) {
+            item.cartQuantity += 1;
+            item.stock -= 1;
+          }
+          return item;
+        });
+
+        localStorage.setItem("cart", JSON.stringify(incCartItems));
+        return {
+          ...state,
+          cartItems: incCartItems
+        };
+
+      case DECREASE_ITEM: 
+      const decreasedCartItems = state.cartItems.map((item) => {
+        if (item.id === action.payload.id) {
+          // Verifica que la cantidad en el carrito sea mayor que 1 antes de disminuir
+          if (item.cartQuantity > 1) {
+            item.cartQuantity -= 1;
+            item.stock += 1; // Aumenta el stock
+          }
+        }
+        return item;
+      });
+
+      localStorage.setItem("cart", JSON.stringify(decreasedCartItems));
+
+      return {
+        ...state,
+        cartItems: decreasedCartItems,
       };
 
     default:

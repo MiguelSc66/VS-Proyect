@@ -9,7 +9,9 @@ export const LOGOUT = "LOGOUT";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const CREATE_NEW_USER = "CREATE_NEW_USER";
 export const ADD_TO_CART = "ADD_TO_CART";
-export const CLEAR_CART = "CLEAR_CART"
+export const CLEAR_CART = "CLEAR_CART";
+export const INCREASE_ITEM = "INCREASE_ITEM";
+export const DECREASE_ITEM = "DECREASE_ITEM";
 
 
 
@@ -106,5 +108,15 @@ export const addToCart = (drink) => async (dispatch) => {
 }
 
 export const clearCart = () => ({
-    type: CLEAR_CART
-})
+  type: CLEAR_CART,
+});
+
+export const increaseItem = (drink) => ({
+  type: "INCREASE_ITEM",
+  payload: drink,
+});
+
+export const decreaseItem = (drink) => ({
+  type: "DECREASE_ITEM",
+  payload: drink,
+});

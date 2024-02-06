@@ -1,20 +1,24 @@
 import { RiShoppingCartLine } from "react-icons/ri";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { clearCart } from "../../redux/actions";
+import { clearCart, increaseItem, decreaseItem } from "../../redux/actions";
 
 const ShoppingCart = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cartItems); // Obtener cartItems del estado global
   console.log(cartItems);
-
-  const handleToggleCart = () => {
+  
+  function handleToggleCart() {
     setIsOpen(!isOpen);
-  };
+  }
 
   const handleCloseCart = () => {
     setIsOpen(false);
+  };
+
+  const handlerClear = () => {
+    dispatch(clearCart());
   };
 
   const totalValue = cartItems.reduce(
@@ -22,8 +26,12 @@ const ShoppingCart = () => {
     0
   );
 
-  const handlerClear = () => {
-    dispatch(clearCart());
+  const handleIncrease = (drink) => {
+    dispatch(increaseItem(drink));
+  };
+
+  const handleDecrease = (drink) => {
+    dispatch(decreaseItem(drink));
   };
 
   const cartStyles = {
@@ -56,9 +64,9 @@ const ShoppingCart = () => {
           >
             X
           </button>
-          {cartItems.map((item, index) => (
+          {cartItems.map((item) => (
             <div
-              key={index}
+              key={item.id}
               className="flex items-center mt-4 shadow-md bg-gray-400 p-2 rounded-md"
             >
               <img
@@ -68,13 +76,13 @@ const ShoppingCart = () => {
               />
               <div className="flex flex-col">
                 <span className="text-black bg-slate-300 p-2 mb-2 rounded-md">
-                  {item.name}
+                  {item.name} X{item.cartQuantity}
                 </span>
                 <div className="flex items-center">
-                  <button className="bg-green-600 w-20 h-6 rounded-md mr-2">
+                  <button onClick={() => handleIncrease(item)} disabled={item.stock === 0} className="bg-green-600 w-20 h-6 rounded-md mr-2">
                     Aumentar
                   </button>
-                  <button className="bg-red-400 w-14 h-6 rounded-md">
+                  <button onClick={() => handleDecrease(item)} className="bg-red-400 w-14 h-6 rounded-md">
                     Quitar
                   </button>
                 </div>
