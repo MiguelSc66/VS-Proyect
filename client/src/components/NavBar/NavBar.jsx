@@ -6,8 +6,7 @@ import ShoppingCart from "../ShoppingCart/ShoppingCart";
 
 export default function NavBar() {
   const dispatch = useDispatch();
-  const admins = useSelector((state) => state.admins);
-  const email = useSelector((state) => state.email);
+  const Admin = useSelector((state) => state.isAdmin);
   const token = useSelector((state) => state.token);
 
   useEffect(() => {
@@ -38,9 +37,6 @@ export default function NavBar() {
     );
   }
 
-  // Usuario autenticado
-  const isAdmin = admins.some((admin) => admin.email === email);
-
   return (
     <nav className="w-full mt-0 h-32 bg-black bg-opacity-50">
     <div className="flex justify-between items-center h-full px-8 text-white">
@@ -48,14 +44,14 @@ export default function NavBar() {
         <button>
           <Link to="/">Home</Link>
         </button>
-        {isAdmin && (
+        {Admin && (
           <button>
             <Link to="/dashboard">Panel</Link>
           </button>
         )}
       </div>
       <div className="flex items-center space-x-4">
-        <ShoppingCart/> {/* Agrega el componente ShoppingCart aquí */}
+        <ShoppingCart/>
         <button onClick={handleLogout} id="logout" className="text-white">
           Logout
         </button>
