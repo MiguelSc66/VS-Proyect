@@ -70,19 +70,16 @@ export const createUser = (newUser) => async (dispatch) => {
 export const loginUser = (loginData) => async (dispatch) => {
     try {
         const {data} = await axios.post("https://proyectnext-production.up.railway.app/users/login", loginData);
-        
+        console.log(data)
         dispatch({
             type : LOGIN_SUCCESS,
             payload : data,
         });
-        // if (data.admin) {
-        //     await signIn('credentials',  loginData)
-        // }
     } catch (err) {
         console.error(err);
         dispatch({
             type: LOGIN_FAILURE,
-            payload: err.message, 
+            payload: "Credenciales Incorrectas", 
         });
     }
 }

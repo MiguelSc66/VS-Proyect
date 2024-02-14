@@ -8,7 +8,8 @@ export default function NavBar() {
   const dispatch = useDispatch();
   const Admin = useSelector((state) => state.isAdmin);
   const token = useSelector((state) => state.token);
-
+  console.log(Admin)
+  console.log(token)
   useEffect(() => {
     dispatch(getAllAdmins());
   }, [dispatch]);

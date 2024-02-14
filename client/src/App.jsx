@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 
 function App() {
   const admins = useSelector(state => state.isAdmin);
+  console.log(admins)
   return (
     <Router>
       <NavBar />
@@ -18,7 +19,8 @@ function App() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegistrationForm />} />
         <Route path="*" element={<Error />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+        <Route path="/dashboard" element={admins ?  <Dashboard /> : null} />
       </Routes>
     </Router>
   );

@@ -13,23 +13,17 @@ import {
 } from "./actions";
 
 const initialState = {
-  admins: [],
+ admins: [],
   reviews: [],
   drinks: [],
   users: [],
   cartItems: typeof window !== 'undefined' && localStorage.getItem("cart")
-  ? JSON.parse(localStorage.getItem("cart")) : [],
+    ? JSON.parse(localStorage.getItem("cart")) : [],
   isAuthenticated: false,
   error: null,
-  isAdmin: false,
-  token:
-    typeof window !== "undefined"
-      ? localStorage.getItem("token") || null
-      : null,
-  email:
-    typeof window !== "undefined"
-      ? localStorage.getItem("email") || null
-      : null,
+  isAdmin: typeof window !== "undefined" ? localStorage.getItem("isAdmin") === "true" : false,
+  token: typeof window !== "undefined" ? localStorage.getItem("token") || null : null,
+  email: typeof window !== "undefined" ? localStorage.getItem("email") || null : null,
 };
 
 
@@ -46,7 +40,9 @@ const reducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       localStorage.setItem("token", action.payload.token);
       localStorage.setItem("email", action.payload.email);
+      console.log(action.payload)
       if(action.payload.admin === true) {
+        localStorage.setItem("isAdmin", "true");
         return {
           ...state,
           isAuthenticated: true,
@@ -56,6 +52,8 @@ const reducer = (state = initialState, action) => {
           isAdmin: true,
         };
       } else {
+        localStorage.setItem("isAdmin", "false");
+        console.log(action.payload)
         return {
           ...state,
           isAuthenticated: true,
@@ -74,11 +72,15 @@ const reducer = (state = initialState, action) => {
       };
     case LOGOUT:
       localStorage.removeItem("token");
+      localStorage.removeItem("isAdmin");
+      localStorage.removeItem("email");
       return {
         ...state,
         isAuthenticated: false,
-        token: null, // Borrar el token cuando se cierre sesión
-        error: null, // Restablecer cualquier mensaje de error anterior
+        token: null,
+        isAdmin: false,
+        email: null,
+        error: null,
       };
 
     case ADD_TO_CART:

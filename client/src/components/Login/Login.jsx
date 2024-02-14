@@ -8,7 +8,12 @@ export default function LoginForm() {
     email: "",
     password: "",
   });
-  const authe = useSelector((state) => state.token);
+  const auth = useSelector((state) => state.token)
+  const email = useSelector((state) => state.email)
+  const isAdmin = useSelector((state) => state.isAdmin);
+  console.log(isAdmin)
+  console.log(email)
+  console.log(auth)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -30,7 +35,7 @@ export default function LoginForm() {
     // Dispatch de la acción de inicio de sesión
     await dispatch(loginUser(formData));
 
-    if (!authe && authe !== null) {
+    if (!auth || auth === null) {
       // Mostrar mensaje de error solo si authe es false y no nulo (primera vez)
       toast.error("Error al iniciar sesión", { duration: 2500 });
     } else {
