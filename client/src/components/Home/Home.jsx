@@ -10,7 +10,7 @@ export default function Home() {
   console.log(setPageSize)
   const dispatch = useDispatch();
   const drinks = useSelector((state) => state.drinks);
-
+  
   useEffect(() => {
     dispatch(getAllDrinks());
   }, [dispatch]);

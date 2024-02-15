@@ -109,11 +109,11 @@ export const clearCart = () => ({
 });
 
 export const increaseItem = (drink) => ({
-  type: "INCREASE_ITEM",
+  type: INCREASE_ITEM,
   payload: drink,
 });
 
 export const decreaseItem = (drink) => ({
-  type: "DECREASE_ITEM",
+  type: DECREASE_ITEM,
   payload: drink,
 });

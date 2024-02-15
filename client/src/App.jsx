@@ -7,7 +7,7 @@ import RegistrationForm from './components/Register/Register';
 import NavBar from './components/NavBar/NavBar';
 import Error from './components/Error/Error';
 import { useSelector } from 'react-redux';
-
+import ProtectedRoute from './ProtectedRoute';
 function App() {
   const admins = useSelector(state => state.isAdmin);
   console.log(admins)
@@ -19,8 +19,9 @@ function App() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegistrationForm />} />
         <Route path="*" element={<Error />} />
-        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-        <Route path="/dashboard" element={admins ?  <Dashboard /> : null} />
+        <Route element={ <ProtectedRoute/> }>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
       </Routes>
     </Router>
   );

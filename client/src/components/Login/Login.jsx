@@ -8,19 +8,26 @@ export default function LoginForm() {
     email: "",
     password: "",
   });
-  const auth = useSelector((state) => state.token)
-  const email = useSelector((state) => state.email)
-  const isAdmin = useSelector((state) => state.isAdmin);
-  console.log(isAdmin)
-  console.log(email)
-  console.log(auth)
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isAuthenticated = useSelector((state) => state.isAuthenticated);
 
   useEffect(() => {
     dispatch(getAllAdmins());
     dispatch(getAllUsers());
   }, [dispatch]);
+
+  useEffect(() => {
+    // Verificar cambios en isAuthenticated después del inicio de sesión
+      if (isAuthenticated) {
+        // Si el inicio de sesión es exitoso
+        toast.success("Inicio de sesión exitoso");
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
+      } 
+  }, [isAuthenticated, navigate]);
 
   const handleChange = (e) => {
     setFormData({
@@ -34,17 +41,6 @@ export default function LoginForm() {
 
     // Dispatch de la acción de inicio de sesión
     await dispatch(loginUser(formData));
-
-    if (!auth || auth === null) {
-      // Mostrar mensaje de error solo si authe es false y no nulo (primera vez)
-      toast.error("Error al iniciar sesión", { duration: 2500 });
-    } else {
-      // Mostrar mensaje de éxito solo si authe es verdadero
-      toast.success("Inicio de sesión exitoso", { duration: 1500 });
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
-    }
 
     // Limpieza del formulario
     setFormData({
@@ -97,4 +93,3 @@ export default function LoginForm() {
     </div>
   );
 }
-

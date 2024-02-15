@@ -16,6 +16,7 @@ export default function NavBar() {
 
   const handleLogout = () => {
     dispatch(logoutUser());
+    console.log(Admin)
   };
   if (!token) {
     // Usuario no autenticado
