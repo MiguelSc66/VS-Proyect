@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser, getAllAdmins } from "../../redux/actions";
+import toast, { Toaster } from "react-hot-toast";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 
 export default function NavBar() {
@@ -16,7 +17,8 @@ export default function NavBar() {
 
   const handleLogout = () => {
     dispatch(logoutUser());
-    console.log(Admin)
+    toast.success("Cierre de sesion exitoso", {duration: 2000})
+
   };
   if (!token) {
     // Usuario no autenticado
@@ -35,6 +37,7 @@ export default function NavBar() {
             </button>
           </div>
         </div>
+        <Toaster position="top-center" reverseOrder={false}/>
       </nav>
     );
   }
