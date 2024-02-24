@@ -17,7 +17,7 @@ export const DECREASE_ITEM = "DECREASE_ITEM";
 
 export const getAllUsers = () => async (dispatch) => {
     try {
-        const {data} = await axios.get("https://proyectnext-production.up.railway.app/users");
+        const {data} = await axios.get("https://vs-proyect-production.up.railway.app/users");
         
         return dispatch ({
             type : GET_ALL_USERS,
@@ -30,7 +30,7 @@ export const getAllUsers = () => async (dispatch) => {
 
 export const getAllDrinks = () => async (dispatch) => {
     try {
-        const {data} = await axios.get("https://proyectnext-production.up.railway.app/drinks")
+        const {data} = await axios.get("https://vs-proyect-production.up.railway.app/drinks")
 
         return dispatch ({
             type : GET_ALL_DRINKS,
@@ -43,7 +43,7 @@ export const getAllDrinks = () => async (dispatch) => {
 
 export const getAllAdmins = () => async (dispatch) => {
     try {
-        const {data} = await axios.get("https://proyectnext-production.up.railway.app/admins")
+        const {data} = await axios.get("https://vs-proyect-production.up.railway.app/admins")
        
 
         return dispatch({
@@ -57,7 +57,7 @@ export const getAllAdmins = () => async (dispatch) => {
 
 export const createUser = (newUser) => async (dispatch) => {
     try {
-        const {data} = await axios.post("https://proyectnext-production.up.railway.app/users/create", newUser);
+        const {data} = await axios.post("https://vs-proyect-production.up.railway.app/users/create", newUser);
         return dispatch({
             type : CREATE_NEW_USER,
             payload : data
@@ -69,7 +69,7 @@ export const createUser = (newUser) => async (dispatch) => {
 
 export const loginUser = (loginData) => async (dispatch) => {
     try {
-        const {data} = await axios.post("https://proyectnext-production.up.railway.app/users/login", loginData);
+        const {data} = await axios.post("https://vs-proyect-production.up.railway.app/users/login", loginData);
         console.log(data)
         dispatch({
             type : LOGIN_SUCCESS,
