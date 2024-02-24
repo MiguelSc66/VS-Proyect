@@ -7,10 +7,7 @@ export default function Cards({ drinks }) {
   const dispatch = useDispatch();
   const isAuthenticate = useSelector((state) => state.token !== null);
   const cartItems = useSelector((state) => state.cartItems);
-  console.log(isAuthenticate);
   // const ItemCart = cartItems.find((item) => item.id === drinks.id);
-
-  console.log(buttonDiseabled);
 
   useEffect(() => {
     const isItemInCart = cartItems.some((item) => item.id === drinks.id);
@@ -25,7 +22,7 @@ export default function Cards({ drinks }) {
   };
   return (
     <div className="sm:w-11/12 md:w-9/12 lg:w-8/12 xl:w-7/12 mx-auto mt-5">
-      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
         {drinks.map((card) => (
           <div
             key={card.id}
