@@ -85,7 +85,7 @@ router.get("/drinks/:id", getById);
 router.post("/drinks/create", postDrink);
 router.put("/drinks/upgrade/:id", updateDrink);
 router.put("/drinks/disable/:id", disableDrink);
-router.put("drinks/enabled/:id", restoredDrink);
+router.put("/drinks/enabled/:id", restoredDrink);
 
 router.get("/cart", getCartItems)
 router.post("/cart/add", addToCart);
