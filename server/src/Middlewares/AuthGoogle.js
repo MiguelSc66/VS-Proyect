@@ -1,4 +1,4 @@
-import admin from "../ConfigGoogleAuth/firebaseAdmin"
+const admin = require("../ConfigGoogleAuth/firebaseAdmin")
 
 const decodeToken = async (req, res, next) => {
     try {
