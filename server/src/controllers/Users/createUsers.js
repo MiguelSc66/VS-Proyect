@@ -93,4 +93,4 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { createUser, loginUser, loginGoogle };
+module.exports = { createUser, loginUser };
