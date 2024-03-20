@@ -1,7 +1,7 @@
 const { Router } = require("express");
 
 const router = Router();
-
+const routerAuth = Router();
 // Importa los controladores necesarios
 const {
   createUser,
@@ -11,14 +11,14 @@ const {
   inhabilityUser,
   deleteUser,
   restoreUser,
-} = require("../controllers/Users/deletedUsers")
+} = require("../controllers/Users/deletedUsers");
 const {
   getAdmins,
   getUsers,
-} = require("../controllers/Users/getUsers")
+} = require("../controllers/Users/getUsers");
 const {
   loginGoogle,
-} = require("../controllers/Users/loginGoogle")
+} = require("../controllers/Users/loginGoogle");
 const {
   createReview,
   getAllReviews,
@@ -45,10 +45,11 @@ const {
   updateCartItemQuantity,
   getCartItems,
 } = require("../controllers/Cart/Cart");
-
 const {
   postOrder,
-} = require("../controllers/Order/orders")
+} = require("../controllers/Order/orders");
+const { authenticateJWT } = require("../Middlewares/authMiddleware");
+
 
 // Configura las rutas
 router.get("/admins", getAdmins);
@@ -59,6 +60,20 @@ router.put("/users/restore/:id", restoreUser);
 router.post("/users/create", createUser);
 router.post("/users/login", loginUser);
 router.post("/users/login-google", loginGoogle);
+routerAuth.get("/google", async (req, res) => {
+  try {
+    const infoUser = req.user;
+    const user = await loginGoogle(infoUser);
+    res.status(user.status).json(user.data);
+  } catch (error) {
+    console.error("Error interno del servidor:", error);
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
+});
+router.get("/protectedResource", authenticateJWT, (req, res) => {
+  res.json({ message: "Ruta protegida" });
+});
+
 
 router.post("/reviews/create", createReview);
 router.get("/reviews", getAllReviews);
@@ -77,4 +92,4 @@ router.post("/cart/add", addToCart);
 router.delete("/cart/remove/:userId/:id", removeFromCart);
 router.put("/cart/update/:id", updateCartItemQuantity);
 
-module.exports = router;
+module.exports = {router, routerAuth};

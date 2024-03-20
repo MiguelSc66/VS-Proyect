@@ -28,16 +28,20 @@ export default function Cards({ drinks }) {
             key={card.id}
             className="bg-white rounded-lg shadow-lg overflow-hidden "
           >
-             <div className="h-60 bg-cover bg-center flex items-center justify-center bg-slate-400">
-            <img src={card.image} alt={card.name} className="w-22 h-[25vh] flex" />
-          </div>
-          <div className="p-4">
-            <h2 className="text-xl font-bold mb-2 text-black">{card.name}</h2>
-            <p className="text-gray-500 text-sm">Stock: {card.stock}</p>
-            <p className="text-green-600 font-semibold text-lg mt-2">
-              ${card.price}
-            </p>
-          </div>
+            <div className="h-60 bg-cover bg-center flex items-center justify-center bg-slate-400">
+              <img
+                src={card.image}
+                alt={card.name}
+                className="w-22 h-[25vh] "
+              />
+            </div>
+            <div className="p-4">
+              <h2 className="text-xl font-bold mb-2 text-black">{card.name}</h2>
+              <p className="text-gray-500 text-sm">Stock: {card.stock}</p>
+              <p className="text-green-600 font-semibold text-lg mt-2">
+                ${card.price}
+              </p>
+            </div>
             <div className="w-full h-10 bg-green-500 flex items-center justify-center">
               <button
                 onClick={() => handleAddToCart(card)}
@@ -47,8 +51,7 @@ export default function Cards({ drinks }) {
                   card.stock === 0
                 }
               >
-                {isAuthenticate &&
-                cartItems.some((item) => item.id === card.id)
+                {isAuthenticate && cartItems.some((item) => item.id === card.id)
                   ? "Añadido al carrito"
                   : "Añadir al carrito"}
               </button>
