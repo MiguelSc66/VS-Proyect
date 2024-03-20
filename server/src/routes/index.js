@@ -48,7 +48,7 @@ const {
 const {
   postOrder,
 } = require("../controllers/Order/orders");
-const { authenticateJWT } = require("../Middlewares/authMiddleware");
+// const { authenticateJWT } = require("../Middlewares/authMiddleware");
 
 
 // Configura las rutas
@@ -70,9 +70,9 @@ routerAuth.get("/google", async (req, res) => {
     res.status(500).json({ message: "Error interno del servidor" });
   }
 });
-router.get("/protectedResource", authenticateJWT, (req, res) => {
-  res.json({ message: "Ruta protegida" });
-});
+// router.get("/protectedResource", authenticateJWT, (req, res) => {
+//   res.json({ message: "Ruta protegida" });
+// });
 
 
 router.post("/reviews/create", createReview);
