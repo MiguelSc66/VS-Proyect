@@ -5,6 +5,7 @@ const crypto = require("crypto");
 const secretKey = crypto.randomBytes(32).toString("hex");
 
 const loginGoogle = async (req, res) => {
+  console.log(req, "llega algo")
   const { name, email, isAdmin } = req.body;
   console.log(name, email, isAdmin)
   try {
