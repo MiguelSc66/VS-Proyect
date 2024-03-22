@@ -96,7 +96,7 @@ export const loginUserGoogle = (token, user) => async (dispatch) => {
           })
       const response = await axios.post(
         "http://localhost:3000/google",
-        userData,
+        user,
         {
           headers: {
             Authorization: "Bearer " + token,
