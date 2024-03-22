@@ -5,7 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config"
-
+import firebase  from 'firebase/app'
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({
@@ -58,19 +58,39 @@ export default function LoginForm() {
   const handleGoogle = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      const userData = {
-        name: user.displayName,
-        email: user.email
-      };
-      dispatch(loginUserGoogle(user.accessToken, userData));
+      signInWithPopup(auth, provider).then((results) => {
+        const credential = GoogleAuthProvider.credentialFromResult(results);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = results.user;
+        const userData = {
+          email: user.email,
+          name: user.displayName,
+          age: null,
+          dni: null,
+          password: null,
+          phoneNumber: null,
+          city: null,
+          country: null
+        }
+        dispatch(loginUserGoogle(token, userData));
+      })
+      // const result = await signInWithPopup(auth, provider);
+      // const user = result.user;
+      // console.log(user)
+      // const userData = {
+      //   name: user.displayName,
+      //   email: user.email
+      // };
+      // dispatch(loginUserGoogle(user.accessToken, userData));
       setAuthy(true);
       setToken(user.accessToken);
     } catch (error) {
       console.error("Error al iniciar sesión con Google:", error.message);
     }
   };
+
+
 
 
   return (

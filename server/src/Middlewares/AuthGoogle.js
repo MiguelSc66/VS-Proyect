@@ -10,14 +10,14 @@ const decodeToken = async (req, res, next) => {
         // Extraer el token de autorización y decodificarlo
         const token = req.headers.authorization.split(' ')[1];
         const decodedToken = await admin.auth().verifyIdToken(token);
-
+        console.log(decodeToken)
         // Verificar si el token es válido
         if (!decodedToken) {
             return res.status(401).json({ message: "Token de autorización no válido" });
         }
 
         // Adjuntar la información del usuario decodificado al objeto req
-        req.user = decodedToken;
+        // req.user = decodedToken;
 
         // Continuar con el siguiente middleware o controlador de ruta
         next();

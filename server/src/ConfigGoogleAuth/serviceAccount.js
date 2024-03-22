@@ -2,7 +2,7 @@ require("dotenv").config();
 
 
 const config = {
-  type: "service_account",
+  "type": "service_account",
   "project_id": "vs-proyect",
   "private_key_id": process.env.PRIVATE_KEY_ID,
   "private_key": process.env.PRIVATE_KEY.replace(/\\n/g, "\n"),
