@@ -14,7 +14,7 @@ export default function LoginForm() {
   });
   const [token, setToken] = useState("");
   const [authy, setAuthy] = useState(false)
-
+  console.log(token, authy)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
