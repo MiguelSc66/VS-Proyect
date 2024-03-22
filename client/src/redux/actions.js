@@ -86,16 +86,19 @@ export const loginUser = (loginData) => async (dispatch) => {
     }
 }
 
-export const loginUserGoogle = (token) => async (dispatch) => {
+export const loginUserGoogle = (token, userData) => async (dispatch) => {
     try {
+        console.log(token, userData)
       const response = await axios.post(
         "https://vs-proyect-production.up.railway.app/google",
+        userData,
         {
           headers: {
             Authorization: "Bearer " + token,
           },
         }
       );
+      console.log(response)
       dispatch({
         type: LOGIN_SUCCESS,
         payload: response.data,

@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 const {router, routerAuth} = require('./routes/index');
 const decodeToken = require("./Middlewares/AuthGoogle")
-
+const authenticateJWT = require("./Middlewares/authMiddleware")
 
 
 // Middlewares
@@ -28,6 +28,7 @@ app.use((req, res, next) => {
 
 app.use(router); 
 app.use(decodeToken);
+app.use(authenticateJWT)
 app.use("/auth", routerAuth);
 
 // Ruta para obtener los datos de tragos desde drinks.json

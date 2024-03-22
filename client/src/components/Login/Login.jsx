@@ -57,30 +57,20 @@ export default function LoginForm() {
 
   const handleGoogle = async () => {
     const provider = new GoogleAuthProvider();
-    const result = await signInWithPopup(auth, provider)
-    .then((result) => {
+    try {
+      const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      console.log("Usario autenticado", user)
-      console.log((user.getIdToken(), "token"))
-      if(user) {
-        setAuthy(true);
-        setToken(user.accessToken)
-
-      }
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-        const errorMessage = error.message;
-        console.error("Error al iniciar sesión con Google:", errorMessage);
-    })
-  }
-
-  useEffect(() => {
-    dispatch(loginUserGoogle(token));
-    if(token) {
-      navigate("/");
+      const userData = {
+        name: user.displayName,
+        email: user.email
+      };
+      dispatch(loginUserGoogle(user.accessToken, userData));
+      setAuthy(true);
+      setToken(user.accessToken);
+    } catch (error) {
+      console.error("Error al iniciar sesión con Google:", error.message);
     }
-  }, [token])
+  };
 
 
   return (

@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
     },
     age: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      
     },
     email: {
       type: DataTypes.STRING,
@@ -22,7 +22,7 @@ module.exports = (sequelize) => {
     },
     dni: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      
     },
     password: {
       type: DataTypes.STRING,
