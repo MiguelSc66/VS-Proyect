@@ -38,4 +38,4 @@ const loginGoogle = async (req, res) => {
   }
 };
 
-module.exports = {loginGoogle}
+module.exports = loginGoogle
