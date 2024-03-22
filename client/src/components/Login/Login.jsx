@@ -1,13 +1,19 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser, getAllAdmins, getAllUsers } from "../../redux/actions";
+import { loginUser, getAllAdmins, getAllUsers, loginUserGoogle } from "../../redux/actions";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { auth } from "../../firebase/firebase.config"
+
+
 export default function LoginForm() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const [token, setToken] = useState("");
+  const [authy, setAuthy] = useState(false)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -49,6 +55,34 @@ export default function LoginForm() {
     });
   };
 
+  const handleGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(auth, provider)
+    .then((result) => {
+      const user = result.user;
+      console.log("Usario autenticado", user)
+      console.log((user.getIdToken(), "token"))
+      if(user) {
+        setAuthy(true);
+        setToken(user.accessToken)
+
+      }
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error("Error al iniciar sesión con Google:", errorMessage);
+    })
+  }
+
+  useEffect(() => {
+    dispatch(loginUserGoogle(token));
+    if(token) {
+      navigate("/");
+    }
+  }, [token])
+
+
   return (
     <div className="container mx-auto mt-20 p-8 lg:mt-32 md:mt-32 sm:mt-32">
       <h2 className="text-3xl font-bold text-center mb-8 text-white">Iniciar Sesión</h2>
@@ -88,6 +122,18 @@ export default function LoginForm() {
         >
           Iniciar Sesión
         </button>
+        {isAuthenticated ? (
+          <h1 className="w-full h-10 bg-black text-white px-4 py-2 mt-6 mb-6 rounded hover:bg-white hover:text-black text-center">
+            Autentificado
+          </h1>
+        ) : (
+          <button
+            onClick={handleGoogle}
+            className="w-full h-10 bg-black text-white px-4 py-2 mt-6 mb-6 rounded hover:bg-white hover:text-black"
+          >
+            Ingresa con Google
+          </button>
+        )}
       </form>
       <Toaster position="top-center" reverseOrder={false}/>
     </div>

@@ -1,4 +1,6 @@
 import axios from "axios";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/firebase.config";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const GET_ALL_ADMINS = "GET_ALL_ADMINS";
 export const GET_ALL_DRINKS = "GET_ALL_DRINKS";
@@ -84,10 +86,31 @@ export const loginUser = (loginData) => async (dispatch) => {
     }
 }
 
+export const loginUserGoogle = (token) => async (dispatch) => {
+    try {
+      const response = await axios.post(
+        "https://vs-proyect-production.up.railway.app/google",
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 export const logoutUser = () => async (dispatch) => {
     // Eliminar el token de autenticación del almacenamiento local
     localStorage.removeItem("token");
-
+    localStorage.removeItem("isAdmin");
+    localStorage.removeItem("email");
+    signOut(auth)
     // Despachar la acción de cierre de sesión
     dispatch({ type: LOGOUT });
 };

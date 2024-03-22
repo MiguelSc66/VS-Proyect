@@ -8,6 +8,12 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 const {router, routerAuth} = require('./routes/index');
 const decodeToken = require("./Middlewares/AuthGoogle")
+const admin = require('firebase-admin')
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
 
 // Middlewares
 app.use(cors());

@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { logoutUser, getAllAdmins } from "../../redux/actions";
 import toast, { Toaster } from "react-hot-toast";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase/firebase.config";
 
 export default function NavBar() {
   const dispatch = useDispatch();
@@ -11,6 +13,7 @@ export default function NavBar() {
   const token = useSelector((state) => state.token);
   console.log(Admin)
   console.log(token)
+
   useEffect(() => {
     dispatch(getAllAdmins());
   }, [dispatch]);
@@ -18,8 +21,10 @@ export default function NavBar() {
   const handleLogout = () => {
     dispatch(logoutUser());
     toast.success("Cierre de sesion exitoso", {duration: 2000})
-
+    signOut(auth)
   };
+
+
   if (!token) {
     // Usuario no autenticado
     return (

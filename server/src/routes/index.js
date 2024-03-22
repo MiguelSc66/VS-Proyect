@@ -60,7 +60,7 @@ router.put("/users/restore/:id", restoreUser);
 router.post("/users/create", createUser);
 router.post("/users/login", loginUser);
 router.post("/users/login-google", loginGoogle);
-routerAuth.get("/google", async (req, res) => {
+routerAuth.post("/google", async (req, res) => {
   try {
     const infoUser = req.user;
     const user = await loginGoogle(infoUser);
