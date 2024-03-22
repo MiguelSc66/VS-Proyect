@@ -86,10 +86,10 @@ export const loginUser = (loginData) => async (dispatch) => {
     }
 }
 
-export const loginUserGoogle = (token, userData) => async (dispatch) => {
+export const loginUserGoogle = (token, user) => async (dispatch) => {
     try {
-        console.log(token, userData)
-        console.log(userData, {
+        console.log(token, user)
+        console.log(user, {
             headers: {
               Authorization: "Bearer " + token,
             },
