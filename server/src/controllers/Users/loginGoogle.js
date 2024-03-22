@@ -6,10 +6,10 @@ const secretKey = crypto.randomBytes(32).toString("hex");
 
 const loginGoogle = async (req, res) => {
   const { name, email, isAdmin } = req.body;
-
+  console.log(name, email, isAdmin)
   try {
     const user = await User.findOne({ where: { email } });
-
+    console.log(user)
     if (!user) {
       const newUser = await User.create({
         name,
@@ -20,6 +20,7 @@ const loginGoogle = async (req, res) => {
       const token = jwt.sign({ userId: newUser.id }, secretKey, {
         expiresIn: "1h",
       });
+    console.log(token, "nuevo usuario")
 
       return res.status(201).json({ ...newUser.toJSON(), token, email });
     }
@@ -27,6 +28,7 @@ const loginGoogle = async (req, res) => {
     const token = jwt.sign({ userId: user.id }, secretKey, {
       expiresIn: "1h",
     });
+    console.log(token, "usuario existente")
 
     return res.status(200).json({ message: "Inicio de sesión exitoso", token });
   } catch (error) {
