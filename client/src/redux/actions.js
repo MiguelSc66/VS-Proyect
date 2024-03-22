@@ -89,8 +89,13 @@ export const loginUser = (loginData) => async (dispatch) => {
 export const loginUserGoogle = (token, userData) => async (dispatch) => {
     try {
         console.log(token, userData)
+        console.log(userData, {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          })
       const response = await axios.post(
-        "https://vs-proyect-production.up.railway.app/google",
+        "http://localhost:3000/google",
         userData,
         {
           headers: {
